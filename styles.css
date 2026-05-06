@@ -47,12 +47,44 @@
 }
 
 /* Ajuste fino en mobile */
-@media (max-width: 768px) {
-  .logo-img {
-    height: 36px;
+@media (max-width: 900px) {
+
+  .nav-left,
+  .nav-right {
+    display: none;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  /* barra consistente en mobile */
+  .header {
+    background: #18213a;
+  }
+
+  /* menú desplegable bien anclado */
+  .mobile-menu {
+    display: none;
+    flex-direction: column;
+
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+
+    background: #18213a;
+    border-top: 1px solid rgba(255,255,255,0.08);
+
+    padding: 15px;
+    gap: 10px;
+  }
+
+  .mobile-menu a,
+  .mobile-menu button {
+    text-align: left;
   }
 }
-
 body {
   position: relative;
   margin: 0;
