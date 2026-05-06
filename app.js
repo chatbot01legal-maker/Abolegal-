@@ -34,3 +34,12 @@ function botResponse(text) {
   }
 
 }
+window.addEventListener("scroll", () => {
+  const header = document.querySelector(".header");
+
+  if (window.scrollY > 50) {
+    header.style.background = "rgba(21, 26, 44, 0.95)";
+  } else {
+    header.style.background = "rgba(21, 26, 44, 0.7)";
+  }
+});
