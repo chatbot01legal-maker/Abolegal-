@@ -62,16 +62,16 @@ p {
   margin-bottom: 40px;
 }
 
-.chat-container {
+..chat-container {
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(10px);
+  position: relative;
+  z-index: 3;
   max-width: 600px;
   margin: auto;
-
-  background: rgba(255,255,255,0.04);
   border: 1px solid rgba(186,136,46,0.2);
-
   border-radius: 14px;
   padding: 20px;
-
   box-shadow: 0 10px 40px rgba(0,0,0,0.4);
 }
 
@@ -280,12 +280,10 @@ header, main {
 
 #bg-canvas {
   position: fixed;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
-
-  z-index: 0; /* ⚠️ antes estaba en -1 */
-  pointer-events: none; /* no bloquea clicks */
-  opacity: 0.35;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 1; /* importante: ahora el JS controla la intensidad */
 }
