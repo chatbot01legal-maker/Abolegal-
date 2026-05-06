@@ -168,15 +168,28 @@ button {
   margin-top: 20px;
 }
 
-.steps div {
+.steps div,
+.areas-grid div {
   padding: 18px;
-  border: 1px solid rgba(186,136,46,0.25);
   border-radius: 0px;
 
-  background: #ffffff;
+  background: linear-gradient(
+    to bottom,
+    #ffffff,
+    #f2f4f7
+  );
+
   color: #0f172a;
 
-  transition: all 0.2s ease;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.9),
+    0 6px 18px rgba(0,0,0,0.15);
+
+  transition: all 0.25s ease;
+
+  cursor: pointer;
 }
 
 .steps div:hover {
@@ -184,9 +197,24 @@ button {
   border-color: #ba882e;
 }
 
-.steps div:hover {
-  background: #f4f7ff;
-  border-color: #ba882e;
+.steps div:hover,
+.areas-grid div:hover {
+  transform: translateY(-3px);
+
+  border-color: rgba(186,136,46,0.5);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.95),
+    0 10px 25px rgba(0,0,0,0.25),
+    0 0 0 1px rgba(186,136,46,0.15);
+}
+
+.steps div:active,
+.areas-grid div:active {
+  transform: translateY(0px);
+
+  box-shadow:
+    inset 0 3px 8px rgba(0,0,0,0.15);
 }
 
 .steps span {
