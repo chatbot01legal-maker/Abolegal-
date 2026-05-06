@@ -54,55 +54,68 @@ window.addEventListener("DOMContentLoaded", () => {
 
   let t = 0;
 
-  function draw() {
+  function drawGrid() {
+    const spacing = 60;
+    const speed = t * 0.3;
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.strokeStyle = "rgba(186,136,46,0.06)";
+    ctx.lineWidth = 1;
 
-    // Fondo base elegante (profundo, estable)
+    // grid horizontal con movimiento sutil
+    for (let y = 0; y < canvas.height; y += spacing) {
+      ctx.beginPath();
+      ctx.moveTo(0, y + (speed % spacing));
+      ctx.lineTo(canvas.width, y + (speed % spacing));
+      ctx.stroke();
+    }
+
+    // grid vertical con ligera distorsión
+    for (let x = 0; x < canvas.width; x += spacing) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, canvas.height);
+      ctx.stroke();
+    }
+  }
+
+  function drawFlow() {
+
+    for (let i = 0; i < 20; i++) {
+
+      const y = (i * 80 + (t * 0.6)) % canvas.height;
+
+      const gradient = ctx.createLinearGradient(0, y, canvas.width, y);
+
+      gradient.addColorStop(0, "rgba(186,136,46,0)");
+      gradient.addColorStop(0.5, "rgba(186,136,46,0.04)");
+      gradient.addColorStop(1, "rgba(186,136,46,0)");
+
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, y, canvas.width, 2);
+    }
+  }
+
+  function drawBackground() {
+
     const bg = ctx.createLinearGradient(0, 0, 0, canvas.height);
     bg.addColorStop(0, "#0b1220");
     bg.addColorStop(1, "#0f172a");
 
     ctx.fillStyle = bg;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    // niebla suave dorada
-    const haze = ctx.createRadialGradient(
-      canvas.width * 0.5,
-      canvas.height * 0.4,
-      100,
-      canvas.width * 0.5,
-      canvas.height * 0.5,
-      canvas.width
-    );
-
-    haze.addColorStop(0, "rgba(186,136,46,0.05)");
-    haze.addColorStop(1, "rgba(0,0,0,0)");
-
-    ctx.fillStyle = haze;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    // luces suaves flotantes (pocas y elegantes)
-    for (let i = 0; i < 3; i++) {
-
-      const x = canvas.width * (0.3 + i * 0.2);
-      const y = canvas.height * 0.5 + Math.sin(t * 0.0008 + i) * 50;
-
-      const glow = ctx.createRadialGradient(x, y, 0, x, y, 320);
-
-      glow.addColorStop(0, "rgba(186,136,46,0.06)");
-      glow.addColorStop(1, "rgba(186,136,46,0)");
-
-      ctx.fillStyle = glow;
-
-      ctx.beginPath();
-      ctx.arc(x, y, 320, 0, Math.PI * 2);
-      ctx.fill();
-    }
-
-    t++;
-    requestAnimationFrame(draw);
   }
 
-  draw();
+  function animate() {
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    drawBackground();
+    drawGrid();
+    drawFlow();
+
+    t++;
+    requestAnimationFrame(animate);
+  }
+
+  animate();
 });
