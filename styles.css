@@ -505,3 +505,15 @@ header, main {
     text-align: left;
   }
 }
+
+@media (max-width: 900px) {
+
+  .steps div,
+  .areas-grid div {
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+}
