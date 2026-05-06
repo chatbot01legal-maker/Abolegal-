@@ -45,6 +45,7 @@ h1 {
   font-size: 2.6rem;
   font-weight: 600;
   letter-spacing: -0.5px;
+}
 
 .hero h1 {
   margin-bottom: 10px;
@@ -122,7 +123,7 @@ button {
   background: #ba882e;
   border: none;
   padding: 10px 20px;
-  border-radius: 1px;
+  border-radius: 4px;
   cursor: pointer;
 }
 
@@ -269,12 +270,12 @@ button {
 }
 /* ===== FIX BOTONES NAV (forzar estilo final) ===== */
 .header .nav a {
-  border-radius: 0 !important; /* elimina cualquier redondeo */
+  border-radius: 0 !important;
+}
 
-  header, main {
+header, main {
   position: relative;
   z-index: 2;
-  }
 }
 
 #bg-canvas {
@@ -286,5 +287,5 @@ button {
 
   z-index: 0; /* ⚠️ antes estaba en -1 */
   pointer-events: none; /* no bloquea clicks */
-  opacity: 0.18;
+  opacity: 0.35;
 }
