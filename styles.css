@@ -324,9 +324,7 @@ button {
   align-items: center;
 }
 
-/* IZQUIERDA */
-.nav-left {
- .nav-left,
+.nav-left,
 .nav-right {
   display: flex;
   align-items: center;
@@ -497,7 +495,7 @@ header, main {
   }
 }
 
-@media (max-width: 900px) {
+
 @media (max-width: 900px) {
 
   /* ocultar menú desktop */
