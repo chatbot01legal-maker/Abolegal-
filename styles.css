@@ -1,3 +1,37 @@
+/* =====================
+   BASE
+===================== */
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: #0f172a;
+  color: #f5f5f6;
+  position: relative;
+}
+
+p {
+  opacity: 0.8;
+  margin-bottom: 40px;
+}
+
+/* =====================
+   CANVAS BACKGROUND
+===================== */
+
+#bg-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* =====================
+   HEADER
+===================== */
+
 .header {
   position: sticky;
   top: 0;
@@ -16,7 +50,7 @@
   justify-content: space-between;
 }
 
-/* evita comportamiento raro del grid anterior */
+/* NAV DESKTOP */
 .nav-left,
 .nav-right {
   display: flex;
@@ -24,13 +58,26 @@
   gap: 20px;
 }
 
-/* HAMBURGUESA */
-.hamburger {
-  display: none;
-  font-size: 28px;
-  cursor: pointer;
+.nav {
+  display: flex;
+  gap: 25px;
+}
+
+.nav a {
+  padding: 8px 16px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: linear-gradient(to bottom, rgba(255,255,255,0.05), rgba(0,0,0,0.2));
   color: #f5f5f6;
-  z-index: 1100;
+  text-decoration: none;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  font-weight: 500;
+  transition: 0.15s ease;
+}
+
+.nav a:hover {
+  border-color: #ba882e;
+  color: #ba882e;
 }
 
 /* LOGO */
@@ -45,91 +92,85 @@
   display: block;
 }
 
-/* Ajuste fino en mobile */
-@media (max-width: 900px) {
-
-  .nav-left,
-  .nav-right {
-    display: none;
-  }
-
-  .hamburger {
-    display: block;
-  }
-
-  /* barra consistente en mobile */
-  .header {
-    background: #18213a;
-  }
-
-  /* menú desplegable bien anclado */
-  .mobile-menu {
-    display: none;
-    flex-direction: column;
-
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-
-    background: #18213a;
-    border-top: 1px solid rgba(255,255,255,0.08);
-
-    padding: 15px;
-    gap: 10px;
-  }
-
-  .mobile-menu a,
-  .mobile-menu button {
-    text-align: left;
-  }
+/* CTA */
+.cta button {
+  background: #ba882e;
+  border: 1px solid rgba(186,136,46,0.6);
+  color: #151a2c;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-weight: 500;
 }
-body {
-  position: relative;
-  margin: 0;
-  font-family: 'Inter', sans-serif;
-  background: #0f172a; /* más profundo y moderno */
+
+.cta button:hover {
+  background: #d1a23a;
+}
+
+/* HAMBURGUESA */
+.hamburger {
+  display: none;
+  font-size: 32px;
+  cursor: pointer;
   color: #f5f5f6;
+  margin-left: auto;
 }
+
+/* MOBILE MENU */
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+
+  background: #18213a;
+  border-top: 1px solid rgba(255,255,255,0.08);
+
+  padding: 12px;
+  gap: 10px;
+
+  z-index: 2000;
+}
+
+.mobile-menu a,
+.mobile-menu button {
+  width: 100%;
+  text-align: left;
+}
+
+/* =====================
+   HERO
+===================== */
+
 .hero {
   text-align: center;
-  padding: 60px 20px 80px; /* antes 100px */
+  padding: 60px 20px 80px;
   max-width: 900px;
   margin: auto;
 }
 
-h1 {
-  font-family: 'Inter', sans-serif;
+.hero h1 {
   font-size: 2.6rem;
   font-weight: 600;
   letter-spacing: -0.5px;
-}
-
-.hero h1 {
   margin-bottom: 10px;
 }
-.hero p {
-  margin-bottom: 25px;
-}
-  
-}
 
-p {
-  opacity: 0.8;
-  margin-bottom: 40px;
-}
+/* =====================
+   CHAT
+===================== */
 
 .chat-container {
   background: rgba(15, 23, 42, 0.92);
   backdrop-filter: blur(12px);
-  position: relative;
-  z-index: 3;
   max-width: 600px;
   margin: auto;
-  border: 1px solid rgba(186,136,46,0.2);
-  border-radius: 0px;
   padding: 20px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+  border: 1px solid rgba(186,136,46,0.2);
+  position: relative;
+  z-index: 2;
 }
 
 .chat-box {
@@ -138,10 +179,30 @@ p {
   margin-bottom: 15px;
 }
 
+.input-area {
+  display: flex;
+  gap: 10px;
+}
+
+input {
+  flex: 1;
+  padding: 12px;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #f5f5f6;
+}
+
+button {
+  background: #ba882e;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+/* mensajes */
 .message {
   margin: 10px 0;
   padding: 10px;
-  border-radius: 8px;
   max-width: 80%;
 }
 
@@ -155,50 +216,10 @@ p {
   background: rgba(255,255,255,0.08);
 }
 
-.input-area {
-  display: flex;
-  gap: 10px;
-}
+/* =====================
+   TRUST
+===================== */
 
-input {
-  flex: 1;
-  padding: 12px;
-  border-radius: 0px;
-
-  border: 1px solid rgba(255,255,255,0.1);
-  background: rgba(0,0,0,0.3);
-  color: #f5f5f6;
-
-  outline: none;
-}
-
-input:focus {
-  border-color: #ba882e;
-}
-
-button {
-  background: #ba882e;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 0px;
-  cursor: pointer;
-}
-
-.cta button {
-  border-radius: 0px; /* 👈 90° */
-  background: #ba882e;
-  border: 1px solid rgba(186,136,46,0.6);
-  color: #151a2c;
-  padding: 10px 16px;
-  cursor: pointer;
-  font-weight: 500;
-}
-
-.cta button:hover {
-  background: #d1a23a;
-}
-
-/* ===== CONFIANZA ===== */
 .trust {
   display: flex;
   justify-content: center;
@@ -208,15 +229,13 @@ button {
   opacity: 0.7;
 }
 
-/* ===== COMO FUNCIONA ===== */
+/* =====================
+   HOW IT WORKS
+===================== */
+
 .how-it-works {
   margin-top: 80px;
   text-align: center;
-}
-
-.how-it-works h2 {
-  font-family: 'Inter', sans-serif;
-  font-weight: 600;
 }
 
 .steps {
@@ -226,63 +245,18 @@ button {
   margin-top: 20px;
 }
 
-.steps div,
-.areas-grid div {
+.steps div {
   padding: 18px;
-  border-radius: 0px;
-
-  background: linear-gradient(
-    to bottom,
-    #ffffff,
-    #f2f4f7
-  );
-
+  background: linear-gradient(to bottom, #ffffff, #f2f4f7);
   color: #0f172a;
-
-  border: 1px solid rgba(15, 23, 42, 0.12);
-
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.9),
-    0 6px 18px rgba(0,0,0,0.15);
-
-  transition: all 0.25s ease;
-
+  border: 1px solid rgba(15,23,42,0.12);
   cursor: pointer;
 }
 
-.steps div:hover {
-  background: #f4f7ff;
-  border-color: #ba882e;
-}
+/* =====================
+   AREAS
+===================== */
 
-.steps div:hover,
-.areas-grid div:hover {
-  transform: translateY(-3px);
-
-  border-color: rgba(186,136,46,0.5);
-
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.95),
-    0 10px 25px rgba(0,0,0,0.25),
-    0 0 0 1px rgba(186,136,46,0.15);
-}
-
-.steps div:active,
-.areas-grid div:active {
-  transform: translateY(0px);
-
-  box-shadow:
-    inset 0 3px 8px rgba(0,0,0,0.15);
-}
-
-.steps span {
-  display: block;
-  font-size: 1.5rem;
-  color: #ba882e;
-  margin-bottom: 10px;
-}
-
-/* ===== AREAS ===== */
 .areas {
   margin-top: 80px;
   text-align: center;
@@ -297,194 +271,15 @@ button {
 
 .areas-grid div {
   padding: 18px;
-  border: 1px solid rgba(186,136,46,0.25);
-  border-radius: 0px;
-
-  background: #ffffff; /* blanco */
+  background: #ffffff;
   color: #0f172a;
-
-  text-align: center;
-  transition: all 0.2s ease;
+  border: 1px solid rgba(186,136,46,0.25);
   cursor: pointer;
 }
 
-.areas-grid div:hover {
-  background: #f4f7ff;
-  border-color: #ba882e;
-}
-/* ===== HEADER GRID ===== */
-
-.nav-left,
-.nav-right {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.logo-img {
-  height: 60px;
-}
-
-.hamburger {
-  display: none;
-}
-
-/* LINKS */
-.nav {
-  display: flex;
-  gap: 25px;
-}
-
-.nav a {
-  padding: 8px 16px;
-
-  border-radius: 0;
-  border: 1px solid rgba(255,255,255,0.15);
-
-  background: linear-gradient(
-    to bottom,
-    rgba(255,255,255,0.05),
-    rgba(0,0,0,0.2)
-  );
-
-  text-decoration: none;
-  color: #f5f5f6;
-  font-size: 0.8rem;
-  letter-spacing: 1px;
-  font-weight: 500;
-
-  transition: all 0.12s ease;
-
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.1),
-    0 2px 4px rgba(0,0,0,0.4);
-}
-
-/* HOVER tipo “tecla activa” */
-.nav a:hover {
-  border-color: #ba882e;
-  color: #ba882e;
-
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.15),
-    0 0 8px rgba(186,136,46,0.4);
-}
-
-.nav a:active {
-  transform: translateY(2px);
-
-  box-shadow:
-    inset 0 2px 6px rgba(0,0,0,0.6);
-}
-/* ===== FIX BOTONES NAV (forzar estilo final) ===== */
-.header .nav a {
-  border-radius: 0 !important;
-}
-
-header, main {
-  position: relative;
-  z-index: 2;
-}
-
-#bg-canvas {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 1; /* importante: ahora el JS controla la intensidad */
-}
-
-/* ===== HAMBURGUESA ===== */
-.hamburger {
-  display: none;
-  font-size: 28px;
-  cursor: pointer;
-  color: #f5f5f6;
-  justify-self: end;
-}
-
-/* ===== MENÚ MÓVIL ===== */
-.mobile-menu {
-  display: none;
-  flex-direction: column;
-
-  position: absolute;
-  top: 70px;
-  right: 20px;
-
-  background: rgba(15, 23, 42, 0.98);
-  border: 1px solid rgba(255,255,255,0.1);
-
-  padding: 15px;
-  gap: 12px;
-
-  z-index: 2000;
-}
-
-.mobile-menu a,
-.mobile-menu button {
-  text-decoration: none;
-  color: #f5f5f6;
-
-  background: none;
-  border: 1px solid rgba(255,255,255,0.2);
-
-  padding: 10px;
-  border-radius: 0;
-}
-
-
-
-  /* HEADER MÁS ALTO Y ESTABLE */
-  .nav-container {
-    height: 80px;
-    padding: 0 16px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  /* LOGO MÁS PROTAGONISTA */
-  .logo-img {
-    height: 50px;
-  }
-
-  /* HAMBURGUESA FIJADA A LA DERECHA */
-  .hamburger {
-    display: block;
-    font-size: 30px;
-    color: #f5f5f6;
-    margin-left: auto;
-  }
-
-  /* MENÚ MOBILE PEGADO AL HEADER */
-  .mobile-menu {
-    display: none;
-    flex-direction: column;
-
-    position: absolute;
-    top: 80px;
-    left: 0;
-    right: 0;
-
-    background: #18213a;
-    border-top: 1px solid rgba(255,255,255,0.08);
-
-    padding: 12px;
-    gap: 10px;
-
-    z-index: 2000;
-  }
-
-  .mobile-menu a,
-  .mobile-menu button {
-    text-align: left;
-  }
-}
-
+/* =====================
+   MOBILE
+===================== */
 
 @media (max-width: 900px) {
 
@@ -495,33 +290,12 @@ header, main {
 
   .hamburger {
     display: block;
-    margin-left: auto;
-    font-size: 32px;
   }
 
   .logo-img {
-    height: 52px; /* logo más protagonista */
+    height: 52px;
   }
 
-  /* menú móvil correcto */
-  .mobile-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-
-    background: #18213a;
-    border-top: 1px solid rgba(255,255,255,0.08);
-
-    display: none;
-    flex-direction: column;
-    padding: 12px;
-    gap: 10px;
-
-    z-index: 2000;
-  }
-
-  /* columnas → vertical */
   .steps {
     grid-template-columns: 1fr;
   }
@@ -530,7 +304,6 @@ header, main {
     grid-template-columns: 1fr;
   }
 
-  /* FIX 100% confidencial */
   .trust {
     flex-direction: column;
     align-items: center;
@@ -543,4 +316,8 @@ header, main {
     align-items: center;
     line-height: 1.2;
   }
-}
+
+  .mobile-menu {
+    top: 100%;
+  }
+  }
