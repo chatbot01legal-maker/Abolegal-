@@ -5,32 +5,29 @@
   <title>Abolegal</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-<header class="header">
+<!-- CANVAS DE FONDO (DEBE IR PRIMERO) -->
+<canvas id="bg-canvas"></canvas>
 
+<header class="header">
   <div class="nav-container">
 
-    <!-- NAV IZQUIERDA -->
     <nav class="nav nav-left">
       <a href="#">Inicio</a>
       <a href="#">Servicios</a>
     </nav>
 
-    <!-- LOGO CENTRO -->
     <div class="logo">
       <a href="./">
         <img src="./assets/logo.png" alt="Abolegal" class="logo-img">
       </a>
     </div>
 
-    <!-- NAV DERECHA -->
     <div class="nav-right">
       <nav class="nav">
         <a href="#">Equipo</a>
@@ -43,7 +40,6 @@
     </div>
 
   </div>
-
 </header>
 
 <main class="hero">
@@ -58,61 +54,36 @@
       <input id="user-input" type="text" placeholder="Ej: Me despidieron sin aviso...">
       <button onclick="sendMessage()">Analizar</button>
     </div>
-    <!-- BLOQUE CONFIANZA -->
-<div class="trust">
-  <div>✔ Respuesta en minutos</div>
-  <div>✔ Abogados reales</div>
-  <div>✔ 100% confidencial</div>
-</div>
 
-<!-- CÓMO FUNCIONA -->
-<div class="how-it-works">
-  <h2>¿Cómo funciona?</h2>
-
-  <div class="steps">
-    <div>
-      <span>1</span>
-      <p>Describe tu situación</p>
+    <div class="trust">
+      <div>✔ Respuesta en minutos</div>
+      <div>✔ Abogados reales</div>
+      <div>✔ 100% confidencial</div>
     </div>
 
-    <div>
-      <span>2</span>
-      <p>Recibe orientación clara</p>
+    <div class="how-it-works">
+      <h2>¿Cómo funciona?</h2>
+
+      <div class="steps">
+        <div><span>1</span><p>Describe tu situación</p></div>
+        <div><span>2</span><p>Recibe orientación clara</p></div>
+        <div><span>3</span><p>Agenda con un abogado si lo necesitas</p></div>
+      </div>
     </div>
 
-    <div>
-      <span>3</span>
-      <p>Agenda con un abogado si lo necesitas</p>
+    <div class="areas">
+      <h2>Áreas de práctica</h2>
+
+      <div class="areas-grid">
+        <div>Laboral</div>
+        <div>Familia</div>
+        <div>Civil</div>
+        <div>Empresas</div>
+      </div>
     </div>
-  </div>
-</div>
 
-<!-- ÁREAS -->
-<div class="areas">
-  <h2>Áreas de práctica</h2>
-
-  <div class="areas-grid">
-    <div>Laboral</div>
-    <div>Familia</div>
-    <div>Civil</div>
-    <div>Empresas</div>
-  </div>
-</div>
   </div>
 
-</main>
-
-<script src="app.js"></script>
-<body>
-
-<canvas id="bg-canvas"></canvas>
-
-<header class="header">
-  ...
-</header>
-
-<main class="hero">
-  ...
 </main>
 
 <script src="app.js"></script>
