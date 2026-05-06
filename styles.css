@@ -25,7 +25,7 @@
 }
 
 .logo-img {
-  height: 42px;
+  height: 60px;
   width: auto;
   display: block;
 }
@@ -39,14 +39,16 @@
 
 .hero {
   text-align: center;
-  padding: 100px 20px;
+  padding: 60px 20px 80px; /* antes 100px */
   max-width: 900px;
   margin: auto;
 }
 
 h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 2.6rem;
+  font-weight: 600;
+  letter-spacing: -0.5px;
 }
 
 p {
@@ -175,7 +177,7 @@ button {
 .nav-container {
   max-width: 1100px;
   margin: auto;
-  padding: 15px 20px;
+  padding: 10px 20px;
 
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -207,13 +209,23 @@ button {
 }
 
 .nav a {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.05);
   text-decoration: none;
   color: #f5f5f6;
-  opacity: 0.7;
-  transition: 0.3s;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+
+  transition: all 0.2s ease;
 }
 
+/* HOVER tipo “tecla activa” */
 .nav a:hover {
+  border-color: #ba882e;
+  background: rgba(186,136,46,0.15);
   color: #ba882e;
-  opacity: 1;
+  transform: translateY(-2px);
 }
+.
