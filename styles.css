@@ -50,7 +50,6 @@ h1 {
 .hero h1 {
   margin-bottom: 10px;
 }
-
 .hero p {
   margin-bottom: 25px;
 }
@@ -170,15 +169,19 @@ button {
 }
 
 .steps div {
-.steps div {
   padding: 18px;
   border: 1px solid rgba(186,136,46,0.25);
   border-radius: 0px;
 
-  background: #ffffff; /* 👈 blanco */
-  color: #0f172a;      /* azul oscuro */
+  background: #ffffff;
+  color: #0f172a;
 
   transition: all 0.2s ease;
+}
+
+.steps div:hover {
+  background: #f4f7ff;
+  border-color: #ba882e;
 }
 
 .steps div:hover {
