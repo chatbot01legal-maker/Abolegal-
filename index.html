@@ -15,29 +15,49 @@
 <canvas id="bg-canvas"></canvas>
 
 <header class="header">
+</header>
+
+<!-- 📱 MENÚ MÓVIL (NUEVO BLOQUE) -->
+<div id="mobileMenu" class="mobile-menu">
+  <a href="#">Inicio</a>
+  <a href="#">Servicios</a>
+  <a href="#">Equipo</a>
+  <a href="#">Contacto</a>
+  <button>Agendar</button>
+</div>
+
+<main class="hero">
+  
   <div class="nav-container">
 
-    <nav class="nav nav-left">
-      <a href="#">Inicio</a>
-      <a href="#">Servicios</a>
+  <nav class="nav nav-left">
+    <a href="#">Inicio</a>
+    <a href="#">Servicios</a>
+  </nav>
+
+  <div class="logo">
+    <a href="./">
+      <img src="./assets/logo.png" alt="Abolegal" class="logo-img">
+    </a>
+  </div>
+
+  <!-- 🍔 AQUÍ VA EL BOTÓN HAMBURGUESA -->
+  <div class="hamburger" onclick="toggleMenu()">
+    ☰
+  </div>
+
+  <div class="nav-right">
+    <nav class="nav">
+      <a href="#">Equipo</a>
+      <a href="#">Contacto</a>
     </nav>
 
-    <div class="logo">
-      <a href="./">
-        <img src="./assets/logo.png" alt="Abolegal" class="logo-img">
-      </a>
+    <div class="cta">
+      <button>Agendar</button>
     </div>
+  </div>
 
-    <div class="nav-right">
-      <nav class="nav">
-        <a href="#">Equipo</a>
-        <a href="#">Contacto</a>
-      </nav>
-
-      <div class="cta">
-        <button>Agendar</button>
-      </div>
-    </div>
+</div>
 
   </div>
 </header>
