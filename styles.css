@@ -449,14 +449,7 @@ header, main {
   border-radius: 0;
 }
 
-/* activar en mobile/tablet */
-@media (max-width: 900px) {
-@media (max-width: 900px) {
 
-  .nav-left,
-  .nav-right {
-    display: none;
-  }
 
   /* HEADER MÁS ALTO Y ESTABLE */
   .nav-container {
@@ -507,6 +500,22 @@ header, main {
 }
 
 @media (max-width: 900px) {
+
+  .trust {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .trust div {
+    display: flex;
+    flex-direction: column; /* 👈 clave */
+    align-items: center;
+    line-height: 1.2;
+  }
+
+}
 
   .steps div,
   .areas-grid div {
