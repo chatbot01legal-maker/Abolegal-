@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Abolegal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<header class="header">
+  <div class="logo">
+    <!-- ESPACIO PARA LOGO -->
+    <div class="logo-box">LOGO</div>
+  </div>
+</header>
+
+<main class="hero">
+
+  <h1>¿Tienes un problema legal?</h1>
+  <p>Cuéntanos qué está pasando. Te orientamos en minutos.</p>
+
+  <div class="chat-container">
+    <div id="chat-box" class="chat-box"></div>
+
+    <div class="input-area">
+      <input id="user-input" type="text" placeholder="Ej: Me despidieron sin aviso...">
+      <button onclick="sendMessage()">Analizar</button>
+    </div>
+  </div>
+
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
