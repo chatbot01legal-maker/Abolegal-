@@ -28,7 +28,6 @@
 
 body {
   position: relative;
-  z-index: 1;
   margin: 0;
   font-family: 'Inter', sans-serif;
   background: #0f172a; /* más profundo y moderno */
