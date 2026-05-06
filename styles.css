@@ -106,7 +106,7 @@ p {
 input {
   flex: 1;
   padding: 12px;
-  border-radius: 8px;
+  border-radius: 0px;
 
   border: 1px solid rgba(255,255,255,0.1);
   background: rgba(0,0,0,0.3);
@@ -123,8 +123,22 @@ button {
   background: #ba882e;
   border: none;
   padding: 10px 20px;
-  border-radius: 4px;
+  border-radius: 0px;
   cursor: pointer;
+}
+
+.cta button {
+  border-radius: 0px; /* 👈 90° */
+  background: #ba882e;
+  border: 1px solid rgba(186,136,46,0.6);
+  color: #151a2c;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.cta button:hover {
+  background: #d1a23a;
 }
 
 /* ===== CONFIANZA ===== */
@@ -156,16 +170,20 @@ button {
 }
 
 .steps div {
+.steps div {
   padding: 18px;
-  border: 1px solid rgba(186,136,46,0.2);
-  border-radius: 0px; /* 👈 cuadrado */
-  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(186,136,46,0.25);
+  border-radius: 0px;
+
+  background: #ffffff; /* 👈 blanco */
+  color: #0f172a;      /* azul oscuro */
+
   transition: all 0.2s ease;
 }
 
 .steps div:hover {
-  border-color: rgba(186,136,46,0.6);
-  transform: none; /* 👈 elimina efecto flotante */
+  background: #f4f7ff;
+  border-color: #ba882e;
 }
 
 .steps span {
@@ -190,18 +208,21 @@ button {
 
 .areas-grid div {
   padding: 18px;
-  border: 1px solid rgba(186,136,46,0.2);
-  border-radius: 0px; /* 👈 cuadrado */
-  background: rgba(255,255,255,0.02);
-  transition: all 0.2s ease;
+  border: 1px solid rgba(186,136,46,0.25);
+  border-radius: 0px;
+
+  background: #ffffff; /* blanco */
+  color: #0f172a;
+
   text-align: center;
+  transition: all 0.2s ease;
+  cursor: pointer;
 }
 
 .areas-grid div:hover {
-  border-color: rgba(186,136,46,0.6);
-  transform: none; /* 👈 sin “levitar” */
+  background: #f4f7ff;
+  border-color: #ba882e;
 }
-
 /* ===== HEADER GRID ===== */
 
 .nav-container {
