@@ -45,28 +45,57 @@ window.addEventListener("DOMContentLoaded", () => {
     canvas.height = window.innerHeight;
   }
 
+  window.addEventListener("DOMContentLoaded", () => {
+
+  const canvas = document.getElementById("bg-canvas");
+  const ctx = canvas.getContext("2d");
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
   window.addEventListener("resize", resize);
   resize();
 
   let t = 0;
 
   function draw() {
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+    // Fondo base oscuro suave
+    const bg = ctx.createRadialGradient(
+      canvas.width * 0.5,
+      canvas.height * 0.4,
+      100,
+      canvas.width * 0.5,
+      canvas.height * 0.5,
+      canvas.width
+    );
 
-    gradient.addColorStop(0, "rgba(186,136,46,0.06)");
-    gradient.addColorStop(0.5, "rgba(255,255,255,0.02)");
-    gradient.addColorStop(1, "rgba(186,136,46,0.06)");
+    bg.addColorStop(0, "rgba(24, 33, 58, 0.6)");
+    bg.addColorStop(1, "rgba(15, 23, 42, 1)");
 
-    ctx.fillStyle = gradient;
+    ctx.fillStyle = bg;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    for (let i = 0; i < 6; i++) {
-      const y = (Math.sin(t * 0.002 + i) * 90) + i * 180;
+    // “luces suaves flotantes”
+    for (let i = 0; i < 8; i++) {
 
-      ctx.fillStyle = "rgba(186,136,46,0.07)";
-      ctx.fillRect(0, y, canvas.width, 140);
+      const x = canvas.width * (0.2 + i * 0.1);
+      const y = canvas.height * 0.5 + Math.sin(t * 0.001 + i) * 80;
+
+      const glow = ctx.createRadialGradient(x, y, 0, x, y, 200);
+
+      glow.addColorStop(0, "rgba(186,136,46,0.08)");
+      glow.addColorStop(1, "rgba(186,136,46,0)");
+
+      ctx.fillStyle = glow;
+
+      ctx.beginPath();
+      ctx.arc(x, y, 220, 0, Math.PI * 2);
+      ctx.fill();
     }
 
     t++;
