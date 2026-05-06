@@ -45,16 +45,6 @@ window.addEventListener("DOMContentLoaded", () => {
     canvas.height = window.innerHeight;
   }
 
-  window.addEventListener("DOMContentLoaded", () => {
-
-  const canvas = document.getElementById("bg-canvas");
-  const ctx = canvas.getContext("2d");
-
-  function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-
   window.addEventListener("resize", resize);
   resize();
 
@@ -64,37 +54,45 @@ window.addEventListener("DOMContentLoaded", () => {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Fondo base oscuro suave
-    const bg = ctx.createRadialGradient(
-      canvas.width * 0.5,
-      canvas.height * 0.4,
-      100,
-      canvas.width * 0.5,
-      canvas.height * 0.5,
-      canvas.width
-    );
-
-    bg.addColorStop(0, "rgba(24, 33, 58, 0.6)");
-    bg.addColorStop(1, "rgba(15, 23, 42, 1)");
+    // 🌑 base elegante (más oscuro, más “legal”)
+    const bg = ctx.createLinearGradient(0, 0, 0, canvas.height);
+    bg.addColorStop(0, "#0b1220");
+    bg.addColorStop(1, "#0f172a");
 
     ctx.fillStyle = bg;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // “luces suaves flotantes”
-    for (let i = 0; i < 8; i++) {
+    // ✨ niebla suave (NO repetitiva, NO técnica)
+    const haze = ctx.createRadialGradient(
+      canvas.width * 0.5,
+      canvas.height * 0.35,
+      100,
+      canvas.width * 0.5,
+      canvas.height * 0.5,
+      canvas.width * 0.9
+    );
 
-      const x = canvas.width * (0.2 + i * 0.1);
-      const y = canvas.height * 0.5 + Math.sin(t * 0.001 + i) * 80;
+    haze.addColorStop(0, "rgba(186,136,46,0.06)");
+    haze.addColorStop(1, "rgba(0,0,0,0)");
 
-      const glow = ctx.createRadialGradient(x, y, 0, x, y, 200);
+    ctx.fillStyle = haze;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      glow.addColorStop(0, "rgba(186,136,46,0.08)");
+    // 🌫️ 2 manchas de luz MUY suaves (movimiento casi imperceptible)
+    for (let i = 0; i < 3; i++) {
+
+      const x = canvas.width * (0.3 + i * 0.2);
+      const y = canvas.height * 0.5 + Math.sin(t * 0.0008 + i) * 40;
+
+      const glow = ctx.createRadialGradient(x, y, 0, x, y, 300);
+
+      glow.addColorStop(0, "rgba(186,136,46,0.05)");
       glow.addColorStop(1, "rgba(186,136,46,0)");
 
       ctx.fillStyle = glow;
 
       ctx.beginPath();
-      ctx.arc(x, y, 220, 0, Math.PI * 2);
+      ctx.arc(x, y, 300, 0, Math.PI * 2);
       ctx.fill();
     }
 
