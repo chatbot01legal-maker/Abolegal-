@@ -24,16 +24,20 @@ function sendMessage() {
 }
 
 function botResponse(text) {
+  const lower = text.toLowerCase();
 
-  if (text.toLowerCase().includes("despid")) {
+  if (lower.includes("despid")) {
     addMessage("¿Tu contrato era indefinido o a plazo fijo?", "bot");
-  } else if (text.toLowerCase().includes("arriendo")) {
+  } else if (lower.includes("arriendo")) {
     addMessage("¿Tienes contrato firmado con el arrendador?", "bot");
   } else {
     addMessage("Cuéntame un poco más sobre tu situación para orientarte mejor.", "bot");
   }
-
 }
+
+/* =========================
+   ANIMACIÓN DE FONDO LIMPIA
+========================= */
 
 window.addEventListener("DOMContentLoaded", () => {
 
@@ -54,7 +58,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // 🌑 base elegante (más oscuro, más “legal”)
+    // Fondo base elegante (profundo, estable)
     const bg = ctx.createLinearGradient(0, 0, 0, canvas.height);
     bg.addColorStop(0, "#0b1220");
     bg.addColorStop(1, "#0f172a");
@@ -62,37 +66,37 @@ window.addEventListener("DOMContentLoaded", () => {
     ctx.fillStyle = bg;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // ✨ niebla suave (NO repetitiva, NO técnica)
+    // niebla suave dorada
     const haze = ctx.createRadialGradient(
       canvas.width * 0.5,
-      canvas.height * 0.35,
+      canvas.height * 0.4,
       100,
       canvas.width * 0.5,
       canvas.height * 0.5,
-      canvas.width * 0.9
+      canvas.width
     );
 
-    haze.addColorStop(0, "rgba(186,136,46,0.06)");
+    haze.addColorStop(0, "rgba(186,136,46,0.05)");
     haze.addColorStop(1, "rgba(0,0,0,0)");
 
     ctx.fillStyle = haze;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // 🌫️ 2 manchas de luz MUY suaves (movimiento casi imperceptible)
+    // luces suaves flotantes (pocas y elegantes)
     for (let i = 0; i < 3; i++) {
 
       const x = canvas.width * (0.3 + i * 0.2);
-      const y = canvas.height * 0.5 + Math.sin(t * 0.0008 + i) * 40;
+      const y = canvas.height * 0.5 + Math.sin(t * 0.0008 + i) * 50;
 
-      const glow = ctx.createRadialGradient(x, y, 0, x, y, 300);
+      const glow = ctx.createRadialGradient(x, y, 0, x, y, 320);
 
-      glow.addColorStop(0, "rgba(186,136,46,0.05)");
+      glow.addColorStop(0, "rgba(186,136,46,0.06)");
       glow.addColorStop(1, "rgba(186,136,46,0)");
 
       ctx.fillStyle = glow;
 
       ctx.beginPath();
-      ctx.arc(x, y, 300, 0, Math.PI * 2);
+      ctx.arc(x, y, 320, 0, Math.PI * 2);
       ctx.fill();
     }
 
@@ -101,7 +105,4 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 
   draw();
-
 });
-
-
