@@ -270,6 +270,11 @@ button {
 /* ===== FIX BOTONES NAV (forzar estilo final) ===== */
 .header .nav a {
   border-radius: 0 !important; /* elimina cualquier redondeo */
+
+  header, main {
+  position: relative;
+  z-index: 2;
+  }
 }
 
 #bg-canvas {
@@ -281,5 +286,5 @@ button {
 
   z-index: 0; /* ⚠️ antes estaba en -1 */
   pointer-events: none; /* no bloquea clicks */
-  opacity: 0.15;
+  opacity: 0.18;
 }
