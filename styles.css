@@ -146,7 +146,7 @@ p {
 
 .hero {
   text-align: center;
-  padding: 60px 20px 80px;
+  padding: 30px 20px 70px;
   max-width: 900px;
   margin: auto;
 }
@@ -156,6 +156,14 @@ p {
   font-weight: 600;
   letter-spacing: -0.5px;
   margin-bottom: 10px;
+}
+
+.hero p {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  font-weight: 400;
+  margin-bottom: 25px;
+  opacity: 0.85;
 }
 
 /* =====================
@@ -282,6 +290,18 @@ button {
 ===================== */
 
 @media (max-width: 900px) {
+  .hero {
+    padding: 20px 16px 50px;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero p {
+    font-size: 1.15rem;
+  }
+}
 
   .nav-left,
   .nav-right {
