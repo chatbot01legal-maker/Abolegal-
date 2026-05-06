@@ -270,3 +270,13 @@ button {
 .header .nav a {
   border-radius: 0 !important; /* elimina cualquier redondeo */
 }
+
+#bg-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* detrás de todo */
+  opacity: 0.25;
+}
