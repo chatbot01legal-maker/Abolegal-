@@ -457,7 +457,51 @@ header, main {
     display: none;
   }
 
+  /* HEADER MÁS ALTO EN MOBILE */
+  .header {
+    background: #18213a;
+  }
+
+  .nav-container {
+    height: 80px;              /* 👈 más alto */
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* LOGO MÁS GRANDE */
+  .logo-img {
+    height: 48px;              /* 👈 antes 36px */
+  }
+
+  /* HAMBURGUESA A LA DERECHA */
   .hamburger {
     display: block;
+    font-size: 30px;
+    color: #f5f5f6;
+    margin-left: auto;         /* 👈 fuerza derecha */
+  }
+
+  /* MENÚ MOBILE */
+  .mobile-menu {
+    display: none;
+    flex-direction: column;
+
+    position: absolute;
+    top: 80px;                 /* 👈 coincide con header */
+    left: 0;
+    right: 0;
+
+    background: #18213a;
+    border-top: 1px solid rgba(255,255,255,0.08);
+
+    padding: 15px;
+    gap: 10px;
+  }
+
+  .mobile-menu a,
+  .mobile-menu button {
+    text-align: left;
   }
 }
