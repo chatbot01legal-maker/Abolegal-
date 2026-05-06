@@ -6,7 +6,6 @@
   border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
-/* asegura barra real */
 .nav-container {
   max-width: 1100px;
   margin: auto;
@@ -327,20 +326,19 @@ button {
 
 /* IZQUIERDA */
 .nav-left {
-  justify-self: start;
-}
-
-/* CENTRO (LOGO) */
-.logo {
-  justify-self: center;
-}
-
-/* DERECHA */
+ .nav-left,
 .nav-right {
   display: flex;
   align-items: center;
   gap: 20px;
-  justify-self: end;
+}
+
+.logo-img {
+  height: 60px;
+}
+
+.hamburger {
+  display: none;
 }
 
 /* LINKS */
@@ -500,29 +498,62 @@ header, main {
 }
 
 @media (max-width: 900px) {
+@media (max-width: 900px) {
 
-  .trust {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    text-align: center;
+  /* ocultar menú desktop */
+  .nav-left,
+  .nav-right {
+    display: none;
   }
 
+  /* mostrar hamburguesa */
+  .hamburger {
+    display: block;
+    margin-left: auto;
+    font-size: 30px;
+  }
+
+  /* header más alto y estable */
+  .nav-container {
+    height: 80px;
+    padding: 0 16px;
+  }
+
+  /* logo más grande */
+  .logo-img {
+    height: 50px;
+  }
+
+  /* menú desplegable REAL pegado al header */
+  .mobile-menu {
+    position: absolute;
+    top: 100%; /* 👈 CLAVE: no 70px */
+    left: 0;
+    right: 0;
+
+    background: #18213a;
+    border-top: 1px solid rgba(255,255,255,0.08);
+
+    display: none;
+    flex-direction: column;
+    padding: 12px;
+    gap: 10px;
+  }
+
+  /* columnas → vertical */
+  .steps {
+    grid-template-columns: 1fr;
+  }
+
+  .areas-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* checklist arreglado */
   .trust div {
     display: flex;
-    flex-direction: column; /* 👈 clave */
+    flex-direction: column; /* 👈 esto arregla el “100%” */
     align-items: center;
-    line-height: 1.2;
+    text-align: center;
   }
-
-}
-
-  .steps div,
-  .areas-grid div {
-    text-align: left;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
 }
