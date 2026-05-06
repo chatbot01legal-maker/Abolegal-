@@ -35,81 +35,46 @@ function botResponse(text) {
 
 }
 
-const canvas = document.getElementById("bg-canvas");
-const ctx = canvas.getContext("2d");
+window.addEventListener("DOMContentLoaded", () => {
 
-let particles = [];
-const numParticles = 60;
+  const canvas = document.getElementById("bg-canvas");
+  const ctx = canvas.getContext("2d");
 
-function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-
-window.addEventListener("resize", resizeCanvas);
-resizeCanvas();
-
-class Particle {
-  constructor() {
-    this.x = Math.random() * canvas.width;
-    this.y = Math.random() * canvas.height;
-    this.vx = (Math.random() - 0.5) * 0.3;
-    this.vy = (Math.random() - 0.5) * 0.3;
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
   }
 
-  move() {
-    this.x += this.vx;
-    this.y += this.vy;
+  window.addEventListener("resize", resize);
+  resize();
 
-    if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-    if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-  }
+  let t = 0;
 
-  draw() {
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, 1.2, 0, Math.PI * 2);
-    ctx.fillStyle = "rgba(186,136,46,0.7)";
-    ctx.fill();
-  }
-}
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-function init() {
-  particles = [];
-  for (let i = 0; i < numParticles; i++) {
-    particles.push(new Particle());
-  }
-}
+    const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
 
-function connect() {
-  for (let a = 0; a < particles.length; a++) {
-    for (let b = a + 1; b < particles.length; b++) {
-      const dx = particles[a].x - particles[b].x;
-      const dy = particles[a].y - particles[b].y;
-      const dist = dx * dx + dy * dy;
+    gradient.addColorStop(0, "rgba(186,136,46,0.06)");
+    gradient.addColorStop(0.5, "rgba(255,255,255,0.02)");
+    gradient.addColorStop(1, "rgba(186,136,46,0.06)");
 
-      if (dist < 10000) {
-        ctx.beginPath();
-        ctx.strokeStyle = "rgba(186,136,46,0.08)";
-        ctx.lineWidth = 1;
-        ctx.moveTo(particles[a].x, particles[a].y);
-        ctx.lineTo(particles[b].x, particles[b].y);
-        ctx.stroke();
-      }
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    for (let i = 0; i < 6; i++) {
+      const y = (Math.sin(t * 0.002 + i) * 90) + i * 180;
+
+      ctx.fillStyle = "rgba(186,136,46,0.07)";
+      ctx.fillRect(0, y, canvas.width, 140);
     }
+
+    t++;
+    requestAnimationFrame(draw);
   }
-}
 
-function animate() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  draw();
 
-  particles.forEach(p => {
-    p.move();
-    p.draw();
-  });
+});
 
-  connect();
-  requestAnimationFrame(animate);
-}
 
-init();
-animate();
