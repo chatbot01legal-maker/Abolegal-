@@ -350,3 +350,55 @@ header, main {
   pointer-events: none;
   opacity: 1; /* importante: ahora el JS controla la intensidad */
 }
+
+/* ===== HAMBURGUESA ===== */
+.hamburger {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #f5f5f6;
+  justify-self: end;
+}
+
+/* ===== MENÚ MÓVIL ===== */
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+
+  position: absolute;
+  top: 70px;
+  right: 20px;
+
+  background: rgba(15, 23, 42, 0.98);
+  border: 1px solid rgba(255,255,255,0.1);
+
+  padding: 15px;
+  gap: 12px;
+
+  z-index: 2000;
+}
+
+.mobile-menu a,
+.mobile-menu button {
+  text-decoration: none;
+  color: #f5f5f6;
+
+  background: none;
+  border: 1px solid rgba(255,255,255,0.2);
+
+  padding: 10px;
+  border-radius: 0;
+}
+
+/* activar en mobile/tablet */
+@media (max-width: 900px) {
+
+  .nav-left,
+  .nav-right {
+    display: none;
+  }
+
+  .hamburger {
+    display: block;
+  }
+}
