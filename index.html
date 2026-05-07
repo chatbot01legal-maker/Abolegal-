@@ -18,37 +18,45 @@
     
   <!-- IZQUIERDA -->
   <nav class="nav nav-left">
-    <a href="#">Inicio</a>
-    <a href="#">Servicios</a>
-  </nav>
+<header class="header">
 
-  <!-- LOGO -->
-  <div class="logo">
-    <a href="./">
-      <img src="./assets/logo.png" alt="Abolegal" class="logo-img">
-    </a>
-  </div>
+  <div class="nav-container">
 
-  <!-- DERECHA -->
-  <div class="nav-right">
-    <nav class="nav">
-      <a href="#">Equipo</a>
-      <a href="#">Contacto</a>
+    <!-- IZQUIERDA -->
+    <nav class="nav nav-left">
+      <a href="#">Inicio</a>
+      <a href="#">Servicios</a>
     </nav>
 
-    <div class="cta">
-      <button>Agendar</button>
+    <!-- LOGO -->
+    <div class="logo">
+      <a href="./">
+        <img src="./assets/logo.png" alt="Abolegal" class="logo-img">
+      </a>
     </div>
+
+    <!-- DERECHA -->
+    <div class="nav-right">
+
+      <nav class="nav">
+        <a href="#">Equipo</a>
+        <a href="#">Contacto</a>
+      </nav>
+
+      <div class="cta">
+        <button>Agendar</button>
+      </div>
+
+    </div>
+
+    <!-- HAMBURGUESA -->
+    <div class="hamburger" onclick="toggleMenu()">
+      ☰
+    </div>
+
   </div>
 
-  <!-- HAMBURGUESA (AHORA AQUÍ) -->
-  <div class="hamburger" onclick="toggleMenu()">
-    ☰
-  </div>
-
-</div>
-
-  <!-- MENÚ MOBILE (FUERA DEL GRID) -->
+  <!-- MENÚ MOBILE -->
   <div id="mobileMenu" class="mobile-menu">
     <a href="#">Inicio</a>
     <a href="#">Servicios</a>
