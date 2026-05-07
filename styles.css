@@ -60,6 +60,10 @@ p {
   gap: 20px;
 }
 
+.nav-right {
+  justify-content: flex-end;
+}
+
 .nav {
   display: flex;
   gap: 25px;
