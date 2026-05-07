@@ -82,7 +82,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     for (let i = 0; i < 20; i++) {
 
-      const y = (i * 80 + (t * 0.6)) % canvas.height;
+      const y = (i * 80 - (t * 0.6) + canvas.height) % canvas.height;
 
       const gradient = ctx.createLinearGradient(0, y, canvas.width, y);
 
