@@ -429,15 +429,29 @@ button {
 }
 
 /* centrar logo en mobile */
+/* layout mobile */
 .nav-container {
+  display: flex;
   justify-content: center;
+  align-items: center;
   position: relative;
 }
 
-/* hamburguesa a la derecha sin romper el centrado */
+/* logo perfectamente centrado */
+.logo {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* hamburguesa a la derecha */
 .hamburger {
+  display: block;
   position: absolute;
   right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 0;
 }
    
   /* ===== SECCIONES ===== */
