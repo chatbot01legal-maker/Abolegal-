@@ -402,34 +402,75 @@ button {
   gap: 16px;
   margin-top: 20px;
 }
-.areas-grid div {
-  padding: 16px;
-  min-height: 72px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+.area-card {
+  padding: 26px 22px;
 
   background: rgba(255,255,255,0.03);
 
   border: 1px solid rgba(186,136,46,0.15);
 
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
 
   box-shadow:
     0 8px 24px rgba(0,0,0,0.25);
 
-  transition: all 0.25s ease;
+  transition: all 0.22s ease;
 
   cursor: pointer;
+
+  text-align: left;
 }
-.areas-grid div:hover {
+
+.area-card:hover {
   transform: translateY(-3px);
-  border-color: #ba882e;
+
+  border-color: rgba(186,136,46,0.45);
+
+  background: rgba(255,255,255,0.05);
+
   box-shadow:
-    0 10px 22px rgba(0,0,0,0.15),
-    0 0 0 1px rgba(186,136,46,0.2);
+    0 0 18px rgba(186,136,46,0.12);
+}
+
+.area-icon {
+  width: 44px;
+  height: 44px;
+
+  margin-bottom: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+
+  background: rgba(186,136,46,0.12);
+
+  border: 1px solid rgba(186,136,46,0.25);
+
+  color: #d8ab55;
+
+  font-size: 1.2rem;
+}
+
+.area-card h3 {
+  margin: 0 0 10px;
+
+  color: #f5f5f6;
+
+  font-size: 1.05rem;
+
+  font-weight: 600;
+}
+
+.area-card p {
+  margin: 0;
+
+  color: rgba(255,255,255,0.72);
+
+  font-size: 0.92rem;
+
+  line-height: 1.5;
 }
 
 /* =====================
