@@ -300,11 +300,29 @@ button {
 }
 
 .steps div {
-  padding: 18px;
-  background: linear-gradient(to bottom, #ffffff, #f2f4f7);
-  color: #0f172a;
-  border: 1px solid rgba(15,23,42,0.12);
+  padding: 14px 16px;
+  min-height: 110px;
+
+  background: linear-gradient(145deg, #ffffff, #f3f6fb);
+
+  border: 1px solid rgba(15,23,42,0.10);
+
+  border-radius: 0;
+
+  box-shadow:
+    0 4px 10px rgba(0,0,0,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.8);
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
   cursor: pointer;
+}
+
+.steps div:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 18px rgba(0,0,0,0.12),
+    0 0 0 1px rgba(186,136,46,0.15);
 }
 
 /* =====================
@@ -324,11 +342,28 @@ button {
 }
 
 .areas-grid div {
-  padding: 18px;
-  background: #ffffff;
-  color: #0f172a;
-  border: 1px solid rgba(186,136,46,0.25);
+  padding: 14px 16px;
+  min-height: 90px;
+
+  background: linear-gradient(145deg, #ffffff, #f4f7ff);
+
+  border: 1px solid rgba(186,136,46,0.18);
+
+  box-shadow:
+    0 6px 14px rgba(0,0,0,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.9);
+
+  transition: all 0.25s ease;
+
   cursor: pointer;
+}
+
+.areas-grid div:hover {
+  transform: translateY(-3px);
+  border-color: #ba882e;
+  box-shadow:
+    0 10px 22px rgba(0,0,0,0.15),
+    0 0 0 1px rgba(186,136,46,0.2);
 }
 
 /* =====================
