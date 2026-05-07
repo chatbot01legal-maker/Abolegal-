@@ -290,6 +290,8 @@ button {
 ===================== */
 
 @media (max-width: 900px) {
+
+  /* ===== HERO ===== */
   .hero {
     padding: 20px 16px 50px;
   }
@@ -301,8 +303,8 @@ button {
   .hero p {
     font-size: 1.15rem;
   }
-}
 
+  /* ===== HEADER MOBILE ===== */
   .nav-left,
   .nav-right {
     display: none;
@@ -316,6 +318,15 @@ button {
     height: 52px;
   }
 
+  .mobile-menu {
+    top: 100%;
+  }
+
+  .mobile-menu.active {
+    display: flex;
+  }
+
+  /* ===== SECCIONES ===== */
   .steps {
     grid-template-columns: 1fr;
   }
@@ -336,13 +347,6 @@ button {
     align-items: center;
     line-height: 1.2;
   }
-
-  .mobile-menu {
-    top: 100%;
-  }
- 
-.mobile-menu.active {
-  display: flex;
 }
 
 
