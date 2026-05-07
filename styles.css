@@ -307,13 +307,16 @@ button {
 }
 
 .steps div {
-  padding: 18px 16px;
-  min-height: 120px;
+  padding: 16px;
+  min-height: 72px;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  text-align: center;
+  color: #18213a;
 
   background: linear-gradient(145deg, #ffffff, #f3f6fb);
 
@@ -368,14 +371,16 @@ button {
   gap: 16px;
   margin-top: 20px;
 }
-
 .areas-grid div {
-  padding: 18px 16px;
-  min-height: 120px;
+  padding: 16px;
+  min-height: 72px;
 
   display: flex;
   justify-content: center;
   align-items: center;
+
+  text-align: center;
+  color: #18213a;
 
   background: linear-gradient(145deg, #ffffff, #f4f7ff);
 
