@@ -36,7 +36,7 @@ function botResponse(text) {
 }
 
 /* =========================
-   ANIMACIÓN DE FONDO LIMPIA
+   ANIMACIÓN DE FONDO
 ========================= */
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -54,112 +54,133 @@ window.addEventListener("DOMContentLoaded", () => {
 
   let t = 0;
 
-  
+  /* GRID */
+  function drawGrid() {
 
-  function drawFlow() {
+    const spacing = 60;
 
-    for (let i = 0; i < 20; i++) {
+    ctx.strokeStyle = "rgba(186,136,46,0.05)";
+    ctx.lineWidth = 1;
 
-      const y = (i * 80 - (t * 0.6) + canvas.height) % canvas.height;
+    // horizontales
+    for (let y = 0; y < canvas.height; y += spacing) {
 
-      const gradient = ctx.createLinearGradient(0, y, canvas.width, y);
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(canvas.width, y);
+      ctx.stroke();
+    }
 
-      gradient.addColorStop(0, "rgba(186,136,46,0)");
-      gradient.addColorStop(0.5, "rgba(186,136,46,0.04)");
-      gradient.addColorStop(1, "rgba(186,136,46,0)");
+    // verticales
+    for (let x = 0; x < canvas.width; x += spacing) {
 
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, y, canvas.width, 2);
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, canvas.height);
+      ctx.stroke();
     }
   }
 
+  /* LÍNEAS FLUYENDO */
+  function drawFlow() {
+
+    for (let i = 0; i < 12; i++) {
+
+      const baseY =
+        (i * 120 - (t * 0.35) + canvas.height)
+        % canvas.height;
+
+      const wave =
+        Math.sin((t * 0.01) + i) * 20;
+
+      const y = baseY + wave;
+
+      const gradient =
+        ctx.createLinearGradient(0, y, canvas.width, y);
+
+      gradient.addColorStop(
+        0,
+        "rgba(186,136,46,0)"
+      );
+
+      gradient.addColorStop(
+        0.5,
+        "rgba(186,136,46,0.06)"
+      );
+
+      gradient.addColorStop(
+        1,
+        "rgba(186,136,46,0)"
+      );
+
+      ctx.fillStyle = gradient;
+
+      ctx.fillRect(
+        0,
+        y,
+        canvas.width,
+        2
+      );
+    }
+  }
+
+  /* FONDO */
   function drawBackground() {
 
-    const bg = ctx.createLinearGradient(0, 0, 0, canvas.height);function drawGrid() {
+    const bg =
+      ctx.createLinearGradient(
+        0,
+        0,
+        0,
+        canvas.height
+      );
 
-  const spacing = 60;
-
-  ctx.strokeStyle = "rgba(186,136,46,0.05)";
-  ctx.lineWidth = 1;
-
-  // horizontales estáticas
-  for (let y = 0; y < canvas.height; y += spacing) {
-
-    ctx.beginPath();
-    ctx.moveTo(0, y);
-    ctx.lineTo(canvas.width, y);
-    ctx.stroke();
-  }
-
-  // verticales estáticas
-  for (let x = 0; x < canvas.width; x += spacing) {
-
-    ctx.beginPath();
-    ctx.moveTo(x, 0);
-    ctx.lineTo(x, canvas.height);
-    ctx.stroke();
-  }
-}
-
-function drawFlow() {
-
-  for (let i = 0; i < 12; i++) {
-
-    // movimiento ascendente
-    const baseY =
-      (i * 120 - (t * 0.35) + canvas.height) % canvas.height;
-
-    // pequeña oscilación orgánica
-    const wave =
-      Math.sin((t * 0.01) + i) * 20;
-
-    const y = baseY + wave;
-
-    const gradient =
-      ctx.createLinearGradient(0, y, canvas.width, y);
-
-    gradient.addColorStop(0,
-      "rgba(186,136,46,0)");
-
-    gradient.addColorStop(0.5,
-      "rgba(186,136,46,0.06)");
-
-    gradient.addColorStop(1,
-      "rgba(186,136,46,0)");
-
-    ctx.fillStyle = gradient;
-
-    ctx.fillRect(
-      0,
-      y,
-      canvas.width,
-      2
-    );
-  }
-}
     bg.addColorStop(0, "#0b1220");
     bg.addColorStop(1, "#0f172a");
 
     ctx.fillStyle = bg;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillRect(
+      0,
+      0,
+      canvas.width,
+      canvas.height
+    );
   }
 
+  /* LOOP */
   function animate() {
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(
+      0,
+      0,
+      canvas.width,
+      canvas.height
+    );
 
     drawBackground();
     drawGrid();
     drawFlow();
 
     t++;
+
     requestAnimationFrame(animate);
   }
 
   animate();
 });
 
+/* =========================
+   MOBILE MENU
+========================= */
+
 function toggleMenu() {
-  const menu = document.getElementById("mobileMenu");
-  menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+
+  const menu =
+    document.getElementById("mobileMenu");
+
+  menu.style.display =
+    menu.style.display === "flex"
+      ? "none"
+      : "flex";
 }
