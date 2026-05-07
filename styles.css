@@ -386,6 +386,17 @@ button {
   background: #d1a23a;
 }
 
+/* centrar logo en mobile */
+.nav-container {
+  justify-content: center;
+  position: relative;
+}
+
+/* hamburguesa a la derecha sin romper el centrado */
+.hamburger {
+  position: absolute;
+  right: 16px;
+}
    
   /* ===== SECCIONES ===== */
   .steps {
