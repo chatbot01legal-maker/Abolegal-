@@ -54,29 +54,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   let t = 0;
 
-  function drawGrid() {
-    const spacing = 60;
-    const speed = t * 0.3;
-
-    ctx.strokeStyle = "rgba(186,136,46,0.06)";
-    ctx.lineWidth = 1;
-
-    // grid horizontal con movimiento sutil
-    for (let y = 0; y < canvas.height; y += spacing) {
-      ctx.beginPath();
-      ctx.moveTo(0, y + (speed % spacing));
-      ctx.lineTo(canvas.width, y + (speed % spacing));
-      ctx.stroke();
-    }
-
-    // grid vertical con ligera distorsión
-    for (let x = 0; x < canvas.width; x += spacing) {
-      ctx.beginPath();
-      ctx.moveTo(x, 0);
-      ctx.lineTo(x, canvas.height);
-      ctx.stroke();
-    }
-  }
+  
 
   function drawFlow() {
 
@@ -97,7 +75,68 @@ window.addEventListener("DOMContentLoaded", () => {
 
   function drawBackground() {
 
-    const bg = ctx.createLinearGradient(0, 0, 0, canvas.height);
+    const bg = ctx.createLinearGradient(0, 0, 0, canvas.height);function drawGrid() {
+
+  const spacing = 60;
+
+  ctx.strokeStyle = "rgba(186,136,46,0.05)";
+  ctx.lineWidth = 1;
+
+  // horizontales estáticas
+  for (let y = 0; y < canvas.height; y += spacing) {
+
+    ctx.beginPath();
+    ctx.moveTo(0, y);
+    ctx.lineTo(canvas.width, y);
+    ctx.stroke();
+  }
+
+  // verticales estáticas
+  for (let x = 0; x < canvas.width; x += spacing) {
+
+    ctx.beginPath();
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x, canvas.height);
+    ctx.stroke();
+  }
+}
+
+function drawFlow() {
+
+  for (let i = 0; i < 12; i++) {
+
+    // movimiento ascendente
+    const baseY =
+      (i * 120 - (t * 0.35) + canvas.height) % canvas.height;
+
+    // pequeña oscilación orgánica
+    const wave =
+      Math.sin((t * 0.01) + i) * 20;
+
+    const y = baseY + wave;
+
+    const gradient =
+      ctx.createLinearGradient(0, y, canvas.width, y);
+
+    gradient.addColorStop(0,
+      "rgba(186,136,46,0)");
+
+    gradient.addColorStop(0.5,
+      "rgba(186,136,46,0.06)");
+
+    gradient.addColorStop(1,
+      "rgba(186,136,46,0)");
+
+    ctx.fillStyle = gradient;
+
+    ctx.fillRect(
+      0,
+      y,
+      canvas.width,
+      2
+    );
+  }
+}
     bg.addColorStop(0, "#0b1220");
     bg.addColorStop(1, "#0f172a");
 
