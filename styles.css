@@ -393,19 +393,54 @@ button {
   }
 
   /* ===== HEADER MOBILE ===== */
+
+  .header {
+    min-height: 82px;
+  }
+
   .nav-left,
   .nav-right {
     display: none;
   }
 
-  .hamburger {
-    display: block;
+  .nav-container {
+    min-height: 82px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+
+    padding: 0 18px;
+  }
+
+  /* LOGO */
+  .logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   .logo-img {
-    height: 52px;
+    height: 58px;
+    width: auto;
   }
 
+  /* HAMBURGUESA */
+  .hamburger {
+    display: block;
+
+    position: absolute;
+    right: 18px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    margin-left: 0;
+  }
+
+  /* MOBILE MENU */
   .mobile-menu {
     top: 100%;
   }
@@ -414,45 +449,17 @@ button {
     display: flex;
   }
 
+  /* CTA destacado */
+  .mobile-menu button {
+    background: #ba882e;
+    border: 1px solid rgba(186,136,46,0.6);
+    color: #151a2c;
+    font-weight: 600;
+  }
 
-/* CTA destacado en menú móvil */
-.mobile-menu button {
-  background: #ba882e;
-  border: 1px solid rgba(186,136,46,0.6);
-  color: #151a2c;
-  font-weight: 600;
-}
-
-/* hover opcional */
-.mobile-menu button:hover {
-  background: #d1a23a;
-}
-
-/* centrar logo en mobile */
-/* layout mobile */
-.nav-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-}
-
-/* logo perfectamente centrado */
-.logo {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-/* hamburguesa a la derecha */
-.hamburger {
-  display: block;
-  position: absolute;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  margin-left: 0;
-}
+  .mobile-menu button:hover {
+    background: #d1a23a;
+  }
    
   /* ===== SECCIONES ===== */
   .steps {
