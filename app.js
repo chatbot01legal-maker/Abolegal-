@@ -63,7 +63,7 @@ function botResponse(text) {
 }
 
 /* =========================
-   ANIMACIÓN DE FONDO
+   ANIMACIÓN VOZ IA
 ========================= */
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -91,121 +91,6 @@ window.addEventListener("DOMContentLoaded", () => {
   resize();
 
   let t = 0;
-
-  /* =====================
-     GRID
-  ===================== */
-
-  function drawGrid() {
-
-    const spacing = 60;
-
-    ctx.strokeStyle =
-      "rgba(186,136,46,0.05)";
-
-    ctx.lineWidth = 1;
-
-    /* horizontales */
-    for (
-      let y = 0;
-      y < canvas.height;
-      y += spacing
-    ) {
-
-      ctx.beginPath();
-
-      ctx.moveTo(0, y);
-
-      ctx.lineTo(
-        canvas.width,
-        y
-      );
-
-      ctx.stroke();
-    }
-
-    /* verticales */
-    for (
-      let x = 0;
-      x < canvas.width;
-      x += spacing
-    ) {
-
-      ctx.beginPath();
-
-      ctx.moveTo(x, 0);
-
-      ctx.lineTo(
-        x,
-        canvas.height
-      );
-
-      ctx.stroke();
-    }
-  }
-
-  /* =====================
-     LÍNEAS FLUYENDO
-  ===================== */
-
-  function drawFlow() {
-
-    for (let i = 0; i < 12; i++) {
-
-      const baseY =
-
-        (
-          i * 120
-          - (t * 0.35)
-          + canvas.height
-        )
-
-        % canvas.height;
-
-      const wave =
-
-        Math.sin(
-          (t * 0.01) + i
-        ) * 20;
-
-      const y =
-        baseY + wave;
-
-      const gradient =
-
-        ctx.createLinearGradient(
-          0,
-          y,
-          canvas.width,
-          y
-        );
-
-      gradient.addColorStop(
-        0,
-        "rgba(186,136,46,0)"
-      );
-
-      gradient.addColorStop(
-        0.5,
-        "rgba(186,136,46,0.06)"
-      );
-
-      gradient.addColorStop(
-        1,
-        "rgba(186,136,46,0)"
-      );
-
-      ctx.fillStyle =
-        gradient;
-
-      ctx.fillRect(
-        0,
-        y,
-        canvas.width,
-        2
-      );
-    }
-  }
 
   /* =====================
      FONDO
@@ -243,6 +128,113 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 
   /* =====================
+     ONDAS IA
+  ===================== */
+
+  function drawVoiceWave() {
+
+    const lines = 7;
+
+    for (let i = 0; i < lines; i++) {
+
+      const centerY =
+
+        canvas.height / 2
+        + (i - lines / 2) * 45;
+
+      ctx.beginPath();
+
+      for (
+        let x = 0;
+        x <= canvas.width;
+        x += 8
+      ) {
+
+        const wave =
+
+          Math.sin(
+            x * 0.008
+            + t * 0.025
+            + i
+          ) * 18
+
+          +
+
+          Math.sin(
+            x * 0.02
+            + t * 0.015
+          ) * 8;
+
+        const y =
+          centerY + wave;
+
+        if (x === 0) {
+
+          ctx.moveTo(x, y);
+
+        } else {
+
+          ctx.lineTo(x, y);
+        }
+      }
+
+      ctx.strokeStyle =
+        `rgba(186,136,46,${
+          0.05 + i * 0.015
+        })`;
+
+      ctx.lineWidth = 1.2;
+
+      ctx.stroke();
+    }
+  }
+
+  /* =====================
+     PARTICULAS
+  ===================== */
+
+  function drawParticles() {
+
+    for (let i = 0; i < 40; i++) {
+
+      const x =
+
+        (
+          i * 137
+          + t * 0.3
+        )
+
+        % canvas.width;
+
+      const y =
+
+        canvas.height / 2
+
+        +
+
+        Math.sin(
+          x * 0.01
+          + t * 0.02
+        ) * 120;
+
+      ctx.beginPath();
+
+      ctx.arc(
+        x,
+        y,
+        1.2,
+        0,
+        Math.PI * 2
+      );
+
+      ctx.fillStyle =
+        "rgba(186,136,46,0.12)";
+
+      ctx.fill();
+    }
+  }
+
+  /* =====================
      LOOP
   ===================== */
 
@@ -257,9 +249,9 @@ window.addEventListener("DOMContentLoaded", () => {
 
     drawBackground();
 
-    drawGrid();
+    drawVoiceWave();
 
-    drawFlow();
+    drawParticles();
 
     t++;
 
@@ -282,11 +274,14 @@ function toggleMenu() {
       "mobileMenu"
     );
 
-  menu.style.display =
-
+  if (
     menu.style.display === "flex"
+  ) {
 
-      ? "none"
+    menu.style.display = "none";
 
-      : "flex";
-}
+  } else {
+
+    menu.style.display = "flex";
+  }
+        }
