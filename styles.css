@@ -307,27 +307,26 @@ button {
 }
 
 .steps div {
-  padding: 18px;
-  min-height: auto;
-
-  background: rgba(255,255,255,0.03);
-
-  border: 1px solid rgba(255,255,255,0.08);
-
-  backdrop-filter: blur(10px);
+  padding: 18px 16px;
+  min-height: 120px;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  gap: 8px;
+  background: linear-gradient(145deg, #ffffff, #f3f6fb);
 
-  transition: all 0.2s ease;
+  border: 1px solid rgba(15,23,42,0.10);
+
+  box-shadow:
+    0 4px 10px rgba(0,0,0,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.8);
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 
   cursor: pointer;
 }
-
 .steps div span {
   font-size: 0.9rem;
   font-weight: 700;
@@ -371,25 +370,22 @@ button {
 }
 
 .areas-grid div {
-  padding: 18px;
-  min-height: auto;
-
-  background: rgba(255,255,255,0.03);
-
-  border: 1px solid rgba(255,255,255,0.08);
-
-  backdrop-filter: blur(10px);
+  padding: 18px 16px;
+  min-height: 120px;
 
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 
-  color: #f5f5f6;
+  background: linear-gradient(145deg, #ffffff, #f4f7ff);
 
-  font-size: 0.95rem;
-  font-weight: 500;
+  border: 1px solid rgba(186,136,46,0.18);
 
-  transition: all 0.2s ease;
+  box-shadow:
+    0 6px 14px rgba(0,0,0,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.9);
+
+  transition: all 0.25s ease;
 
   cursor: pointer;
 }
