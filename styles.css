@@ -360,16 +360,17 @@ button {
   margin-top: 20px;
 }
 .areas-grid div {
-  padding: 14px 16px;
+  padding: 18px;
   min-height: 90px;
 
-  background: linear-gradient(145deg, #ffffff, #f4f7ff);
+  background: rgba(255,255,255,0.03);
 
-  border: 1px solid rgba(186,136,46,0.18);
+  border: 1px solid rgba(186,136,46,0.15);
+
+  backdrop-filter: blur(8px);
 
   box-shadow:
-    0 6px 14px rgba(0,0,0,0.08),
-    inset 0 1px 0 rgba(255,255,255,0.9);
+    0 8px 24px rgba(0,0,0,0.25);
 
   transition: all 0.25s ease;
 
