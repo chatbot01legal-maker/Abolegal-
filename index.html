@@ -63,81 +63,180 @@
 
 </header>
 
+<!-- =========================
+     HERO
+========================= -->
+
 <main class="hero">
 
   <h1>¿Tienes un problema legal?</h1>
-  <p>Cuéntanos qué está pasando. Te orientamos en minutos.</p>
 
-  <div class="chat-container">
-    <div id="chat-box" class="chat-box"></div>
+  <p>
+    Cuéntanos qué está pasando.
+    Te orientamos en minutos.
+  </p>
 
-    <div class="input-area">
-      <input id="user-input" type="text" placeholder="Ej: Me despidieron sin aviso...">
-      <button onclick="sendMessage()">Analizar</button>
+  <!-- CHAT DEMO ANIMADO -->
+  <div class="chat-container demo-chat">
+
+    <div class="chat-header">
+      <div class="status-dot"></div>
+      <span>Asistente Legal IA</span>
     </div>
 
-    <div class="trust">
-      <div>✔ Respuesta en minutos</div>
-      <div>✔ Asistente Legal con IA</div>
-      <div>✔ 100% confidencial</div>
-    </div>
+    <div class="chat-box demo-messages">
 
-    <div class="how-it-works">
-      <h2>¿Cómo funciona?</h2>
-
-      <div class="steps">
-
-  <div class="step-card">
-    <div class="step-number">1</div>
-    <p>Describe tu situación</p>
-  </div>
-
-  <div class="step-card">
-    <div class="step-number">2</div>
-    <p>Recibe orientación clara</p>
-  </div>
-
-  <div class="step-card">
-    <div class="step-number">3</div>
-    <p>Agenda con un abogado</p>
-  </div>
-
-  </div>
-
-    <div class="areas">
-      <h2>Áreas de práctica</h2>
-
-      <div class="areas-grid">
-
-  <div class="area-card">
-    <div class="area-icon">⚖</div>
-    <h3>Laboral</h3>
-    <p>Despidos, contratos y derechos del trabajador.</p>
-  </div>
-
-  <div class="area-card">
-    <div class="area-icon">⌂</div>
-    <h3>Familia</h3>
-    <p>Pensiones, divorcios y cuidado personal.</p>
-  </div>
-
-  <div class="area-card">
-    <div class="area-icon">◈</div>
-    <h3>Civil</h3>
-    <p>Contratos, deudas, accidentes de tránsito y responsabilidad legal.</p>
-  </div>
-
-  <div class="area-card">
-    <div class="area-icon">$</div>
-    <h3>Empresas</h3>
-    <p>Sociedades, asesoría y conflictos comerciales.</p>
-  </div>
-
+      <div class="message bot demo-msg m1">
+        Hola. Soy el asistente legal de Abolegal.
+        ¿Qué ocurrió?
       </div>
 
+      <div class="message user demo-msg m2">
+        Me despidieron sin aviso.
+      </div>
+
+      <div class="message bot demo-msg m3">
+        Entiendo.
+        ¿Tu contrato era indefinido?
+      </div>
+
+      <div class="message user demo-msg m4">
+        Sí, trabajé 4 años.
+      </div>
+
+      <div class="message bot demo-msg m5">
+        Perfecto.
+        Podrías tener derecho a indemnización.
+      </div>
+
+      <div class="typing">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+    </div>
+
+    <div class="input-area fake-input">
+      <input
+        type="text"
+        placeholder="Describe tu problema legal..."
+        disabled
+      >
+
+      <button>Analizar</button>
+    </div>
+
+  </div>
+
+  <div class="trust">
+    <div>✔ Respuesta en minutos</div>
+    <div>✔ Asistente Legal con IA</div>
+    <div>✔ 100% confidencial</div>
   </div>
 
 </main>
+
+<!-- =========================
+     COMO FUNCIONA
+========================= -->
+
+<section class="how-it-works">
+
+  <h2>¿Cómo funciona?</h2>
+
+  <div class="steps">
+
+    <div class="step-card">
+      <div class="step-number">1</div>
+      <p>Describe tu situación</p>
+    </div>
+
+    <div class="step-card">
+      <div class="step-number">2</div>
+      <p>Recibe orientación clara</p>
+    </div>
+
+    <div class="step-card">
+      <div class="step-number">3</div>
+      <p>Agenda con un abogado</p>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =========================
+     AREAS
+========================= -->
+
+<section class="areas">
+
+  <h2>Áreas de práctica</h2>
+
+  <div class="areas-grid">
+
+    <div class="area-card">
+      <div class="area-icon">⚖</div>
+      <h3>Laboral</h3>
+      <p>Despidos, contratos y derechos del trabajador.</p>
+    </div>
+
+    <div class="area-card">
+      <div class="area-icon">⌂</div>
+      <h3>Familia</h3>
+      <p>Pensiones, divorcios y cuidado personal.</p>
+    </div>
+
+    <div class="area-card">
+      <div class="area-icon">◈</div>
+      <h3>Civil</h3>
+      <p>Contratos, accidentes y responsabilidad legal.</p>
+    </div>
+
+    <div class="area-card">
+      <div class="area-icon">$</div>
+      <h3>Empresas</h3>
+      <p>Sociedades y conflictos comerciales.</p>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =========================
+     CHAT REAL
+========================= -->
+
+<section class="real-chat-section">
+
+  <h2>Comienza tu consulta</h2>
+
+  <div class="chat-container real-chat">
+
+    <div class="chat-header">
+      <div class="status-dot"></div>
+      <span>Asistente Legal IA</span>
+    </div>
+
+    <div id="chat-box" class="chat-box"></div>
+
+    <div class="input-area">
+      <input
+        id="user-input"
+        type="text"
+        placeholder="Ej: Me despidieron sin aviso..."
+      >
+
+      <button onclick="sendMessage()">
+        Analizar
+      </button>
+    </div>
+
+  </div>
+
+</section>
+
 
 <script src="app.js"></script>
 
