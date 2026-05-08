@@ -603,9 +603,35 @@ button {
    HOW IT WORKS
 ===================== */
 
+/* =====================
+   HOW IT WORKS
+===================== */
+
 .how-it-works {
-  margin-top: 80px;
+  position: relative;
+  z-index: 2;
+
+  max-width: 1200px;
+
+  margin:
+    90px auto 0;
+
+  padding:
+    0 24px;
+
   text-align: center;
+}
+
+.how-it-works h2 {
+  color: #f5f5f6;
+
+  font-size: 2rem;
+
+  font-weight: 600;
+
+  margin-bottom: 20px;
+
+  letter-spacing: -0.5px;
 }
 
 .steps {
@@ -617,7 +643,7 @@ button {
 
 .step-card {
   padding: 24px 18px;
-
+  border-radius: 18px;
   background: rgba(255,255,255,0.03);
   border: 1px solid rgba(186,136,46,0.15);
 
@@ -666,9 +692,35 @@ button {
    AREAS
 ===================== */
 
+/* =====================
+   AREAS
+===================== */
+
 .areas {
-  margin-top: 80px;
+  position: relative;
+  z-index: 2;
+
+  max-width: 1200px;
+
+  margin:
+    90px auto 0;
+
+  padding:
+    0 24px;
+
   text-align: center;
+}
+
+.areas h2 {
+  color: #f5f5f6;
+
+  font-size: 2rem;
+
+  font-weight: 600;
+
+  margin-bottom: 20px;
+
+  letter-spacing: -0.5px;
 }
 
 .areas-grid {
@@ -843,12 +895,29 @@ button {
    
   /* ===== SECCIONES ===== */
   .steps {
-    grid-template-columns: 1fr;
-  }
+  grid-template-columns: 1fr;
 
-  .areas-grid {
-    grid-template-columns: 1fr;
-  }
+  gap: 16px;
+}
+
+.areas-grid {
+  grid-template-columns: 1fr;
+
+  gap: 16px;
+}
+
+.how-it-works,
+.areas,
+.real-chat-section {
+  padding-left: 18px;
+  padding-right: 18px;
+}
+
+.how-it-works h2,
+.areas h2,
+.real-chat-section h2 {
+  font-size: 1.7rem;
+}
 
   .trust {
     flex-direction: column;
