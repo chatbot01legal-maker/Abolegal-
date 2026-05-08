@@ -1,3 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Servicios | Abolegal</title>
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Inter:wght@300;400;500&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<!-- FONDO -->
+<canvas id="bg-canvas"></canvas>
+
+<!-- HEADER -->
+<header class="header">
+
+  <div class="nav-container">
+
+    <!-- IZQUIERDA -->
+    <nav class="nav nav-left">
+      <a href="./">Inicio</a>
+      <a href="./servicios.html">Servicios</a>
+    </nav>
+
+    <!-- LOGO -->
+    <div class="logo">
+      <a href="./">
+        <img
+          src="./assets/logo.png"
+          alt="Abolegal"
+          class="logo-img"
+        >
+      </a>
+    </div>
+
+    <!-- DERECHA -->
+    <div class="nav-right">
+
+      <nav class="nav">
+        <a href="./equipo.html">Equipo</a>
+        <a href="./contacto.html">Contacto</a>
+      </nav>
+
+      <div class="cta">
+        <button>Agendar</button>
+      </div>
+
+    </div>
+
+    <!-- HAMBURGUESA -->
+    <div
+      class="hamburger"
+      onclick="toggleMenu()"
+    >
+      ☰
+    </div>
+
+  </div>
+
+  <!-- MOBILE MENU -->
+  <div id="mobileMenu" class="mobile-menu">
+
+    <a href="./">Inicio</a>
+
+    <a href="./servicios.html">
+      Servicios
+    </a>
+
+    <a href="./equipo.html">
+      Equipo
+    </a>
+
+    <a href="./contacto.html">
+      Contacto
+    </a>
+
+    <button>
+      Agendar
+    </button>
+
+  </div>
+
+</header>
+
+<!-- HERO -->
 <main class="page-hero">
 
   <span class="page-tag">
@@ -16,15 +112,18 @@
 
 </main>
 
+<!-- SERVICIOS -->
 <section class="services-grid">
 
   <div class="service-card">
+
     <div class="service-icon">⚖</div>
 
     <h3>Derecho Laboral</h3>
 
     <p>
-      Despidos, autodespido, accidentes laborales,
+      Despidos, autodespido,
+      accidentes laborales,
       tutela de derechos y negociación laboral.
     </p>
 
@@ -34,15 +133,18 @@
       <li>Finiquitos</li>
       <li>Fuero laboral</li>
     </ul>
+
   </div>
 
   <div class="service-card">
+
     <div class="service-icon">⌂</div>
 
     <h3>Derecho de Familia</h3>
 
     <p>
-      Resolución estratégica de conflictos familiares
+      Resolución estratégica
+      de conflictos familiares
       y protección jurídica integral.
     </p>
 
@@ -52,30 +154,42 @@
       <li>Cuidado personal</li>
       <li>Violencia intrafamiliar</li>
     </ul>
+
   </div>
 
   <div class="service-card">
+
     <div class="service-icon">◈</div>
 
     <h3>Derecho Civil</h3>
 
     <p>
-      Contratos, responsabilidad civil,
-      indemnizaciones y conflictos patrimoniales.
+      Contratos,
+      responsabilidad civil,
+      indemnizaciones
+      y conflictos patrimoniales.
     </p>
 
   </div>
 
   <div class="service-card">
+
     <div class="service-icon">$</div>
 
     <h3>Empresas & Compliance</h3>
 
     <p>
-      Asesoría corporativa, contratos,
-      cumplimiento normativo y estructura empresarial.
+      Asesoría corporativa,
+      contratos,
+      cumplimiento normativo
+      y estructura empresarial.
     </p>
 
   </div>
 
 </section>
+
+<script src="app.js"></script>
+
+</body>
+</html>
