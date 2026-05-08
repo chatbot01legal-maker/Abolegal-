@@ -70,20 +70,38 @@ p {
 }
 
 .nav a {
-  padding: 8px 16px;
-  border: 1px solid rgba(255,255,255,0.15);
-  background: linear-gradient(to bottom, rgba(255,255,255,0.05), rgba(0,0,0,0.2));
-  color: #f5f5f6;
+  padding: 10px 14px;
+
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  backdrop-filter: blur(10px);
+
+  color: rgba(245, 245, 246, 0.85);
   text-decoration: none;
-  font-size: 0.8rem;
-  letter-spacing: 1px;
+
+  font-size: 0.82rem;
+  letter-spacing: 1.2px;
   font-weight: 500;
-  transition: 0.15s ease;
+
+  border-radius: 10px;
+
+  transition: all 0.25s ease;
+
+  position: relative;
+  overflow: hidden;
 }
 
 .nav a:hover {
-  border-color: #ba882e;
-  color: #ba882e;
+  color: #d8ab55;
+
+  border-color: rgba(186, 136, 46, 0.35);
+
+  background: rgba(186, 136, 46, 0.08);
+
+  transform: translateY(-1px);
+
+  box-shadow: 0 6px 18px rgba(186, 136, 46, 0.12);
 }
 
 /* LOGO */
