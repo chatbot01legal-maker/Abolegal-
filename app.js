@@ -266,7 +266,6 @@ window.addEventListener("DOMContentLoaded", () => {
 /* =========================
    MOBILE MENU
 ========================= */
-
 function toggleMenu() {
 
   const menu =
@@ -274,14 +273,28 @@ function toggleMenu() {
       "mobileMenu"
     );
 
-  if (
-    menu.style.display === "flex"
-  ) {
+  menu.classList.toggle(
+    "active"
+  );
+}
 
-    menu.style.display = "none";
+const mobileLinks =
+  document.querySelectorAll(
+    "#mobileMenu a"
+  );
 
-  } else {
+mobileLinks.forEach(link => {
 
-    menu.style.display = "flex";
-  }
-        }
+  link.addEventListener(
+    "click",
+    () => {
+
+      document
+        .getElementById("mobileMenu")
+        .classList.remove(
+          "active"
+        );
+    }
+  );
+
+});
