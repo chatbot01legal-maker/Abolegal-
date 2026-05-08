@@ -931,4 +931,269 @@ button {
 }
 
 
+/* =====================
+   PAGE HERO
+===================== */
 
+.page-hero {
+  position: relative;
+  z-index: 2;
+
+  max-width: 900px;
+
+  margin: auto;
+
+  padding:
+    70px 24px 30px;
+
+  text-align: center;
+}
+
+.page-tag {
+  display: inline-block;
+
+  padding: 8px 14px;
+
+  margin-bottom: 20px;
+
+  background:
+    rgba(186,136,46,0.12);
+
+  border:
+    1px solid rgba(186,136,46,0.25);
+
+  color: #d8ab55;
+
+  font-size: 0.82rem;
+
+  letter-spacing: 1px;
+
+  text-transform: uppercase;
+}
+
+.page-hero h1 {
+  font-size: 3rem;
+
+  line-height: 1.1;
+
+  margin-bottom: 20px;
+}
+
+.page-hero p {
+  font-size: 1.15rem;
+
+  line-height: 1.7;
+
+  opacity: 0.82;
+}
+
+/* =====================
+   SERVICES
+===================== */
+
+.services-grid {
+  position: relative;
+  z-index: 2;
+
+  max-width: 1200px;
+
+  margin:
+    40px auto 100px;
+
+  padding:
+    0 24px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap: 24px;
+}
+
+.service-card {
+  padding: 32px;
+
+  background:
+    rgba(255,255,255,0.03);
+
+  border:
+    1px solid rgba(186,136,46,0.15);
+
+  backdrop-filter: blur(10px);
+
+  transition: all 0.25s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-3px);
+
+  border-color:
+    rgba(186,136,46,0.4);
+}
+
+.service-card ul {
+  padding-left: 18px;
+
+  opacity: 0.75;
+}
+
+/* =====================
+   TEAM
+===================== */
+
+.team-grid {
+  position: relative;
+  z-index: 2;
+
+  max-width: 1200px;
+
+  margin:
+    40px auto 100px;
+
+  padding:
+    0 24px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 24px;
+}
+
+.team-card {
+  padding: 30px;
+
+  background:
+    rgba(255,255,255,0.03);
+
+  border:
+    1px solid rgba(186,136,46,0.15);
+
+  backdrop-filter: blur(10px);
+}
+
+.team-avatar {
+  width: 68px;
+  height: 68px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    rgba(186,136,46,0.12);
+
+  color: #d8ab55;
+
+  font-weight: 700;
+
+  margin-bottom: 20px;
+}
+
+.team-role {
+  color: #d8ab55;
+
+  font-size: 0.82rem;
+
+  letter-spacing: 1px;
+
+  text-transform: uppercase;
+}
+
+.team-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  margin-top: 20px;
+}
+
+.team-tags span {
+  padding: 6px 10px;
+
+  background:
+    rgba(255,255,255,0.05);
+
+  border:
+    1px solid rgba(255,255,255,0.06);
+
+  font-size: 0.8rem;
+}
+
+/* =====================
+   CONTACT
+===================== */
+
+.contact-layout {
+  position: relative;
+  z-index: 2;
+
+  max-width: 1200px;
+
+  margin:
+    40px auto 100px;
+
+  padding:
+    0 24px;
+
+  display: grid;
+
+  grid-template-columns:
+    1fr 1.2fr;
+
+  gap: 24px;
+}
+
+.contact-card,
+.contact-form-card {
+  padding: 32px;
+
+  background:
+    rgba(255,255,255,0.03);
+
+  border:
+    1px solid rgba(186,136,46,0.15);
+
+  backdrop-filter: blur(10px);
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.contact-form textarea {
+  min-height: 140px;
+
+  resize: vertical;
+
+  padding: 14px;
+
+  background:
+    rgba(0,0,0,0.25);
+
+  border:
+    1px solid rgba(255,255,255,0.08);
+
+  color: white;
+}
+
+/* MOBILE */
+
+@media (max-width: 900px) {
+
+  .services-grid,
+  .team-grid,
+  .contact-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .page-hero h1 {
+    font-size: 2.2rem;
+  }
+     }
