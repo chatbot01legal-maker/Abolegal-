@@ -312,26 +312,23 @@ button {
 }
 
 .steps div {
-  padding: 16px;
-  min-height: 72px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+  padding: 24px 18px;
 
   background: rgba(255,255,255,0.03);
-
   border: 1px solid rgba(186,136,46,0.15);
 
   backdrop-filter: blur(8px);
 
-  box-shadow:
-    0 8px 24px rgba(0,0,0,0.25);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
 
   transition: all 0.2s ease;
 
   cursor: pointer;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .steps div p {
@@ -345,23 +342,18 @@ button {
 /* número */
 
 .step-number {
-  margin-bottom: 12px;
-
-  color: #d8ab55;
-
-  font-weight: 700;
-  font-size: 1.15rem;
-
-  letter-spacing: 1px;
-
   background: none;
   border: none;
   box-shadow: none;
 
   width: auto;
   height: auto;
+  padding: 0;
+  margin-bottom: 10px;
 
-  display: block;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #d8ab55;
 }
 
 /* layout vertical */
