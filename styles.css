@@ -603,10 +603,6 @@ button {
    HOW IT WORKS
 ===================== */
 
-/* =====================
-   HOW IT WORKS
-===================== */
-
 .how-it-works {
   position: relative;
   z-index: 2;
@@ -643,7 +639,7 @@ button {
 
 .step-card {
   padding: 24px 18px;
-  border-radius: 18px;
+  border-radius: 1px;
   background: rgba(255,255,255,0.03);
   border: 1px solid rgba(186,136,46,0.15);
 
@@ -768,7 +764,7 @@ button {
   width: 52px;
   height: 52px;
 
-  margin-bottom: 18px;
+  margin-bottom: 5px;
 
   display: flex;
   align-items: center;
