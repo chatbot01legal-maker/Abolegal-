@@ -1525,7 +1525,7 @@ button {
     1px solid rgba(255,255,255,0.08);
 
   background:
-    rgba(9,14,26,0.82);
+    background: #18213a;
 
   backdrop-filter: blur(12px);
 }
