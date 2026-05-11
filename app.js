@@ -298,3 +298,78 @@ mobileLinks.forEach(link => {
   );
 
 });
+
+/* =========================
+   SOCIAL PROOF POPUPS
+========================= */
+
+const socialMessages = [
+
+  "Recibí orientación en menos de 5 minutos.",
+
+  "Muy clara la explicación del asistente legal.",
+
+  "La videollamada fue profesional y rápida.",
+
+  "Pude entender mi caso antes de contratar.",
+
+  "El asistente me ayudó a ordenar todo.",
+
+  "Excelente experiencia con ABOLEGAL.",
+
+  "Muy útil para entender mis derechos laborales.",
+
+  "Sentí apoyo desde el primer momento."
+];
+
+const socialPopup =
+  document.getElementById(
+    "social-proof-popup"
+  );
+
+const socialPopupText =
+  document.getElementById(
+    "social-popup-text"
+  );
+
+let socialIndex = 0;
+
+function showSocialPopup() {
+
+  socialPopupText.innerText =
+    socialMessages[socialIndex];
+
+  socialPopup.classList.add(
+    "show"
+  );
+
+  setTimeout(() => {
+
+    socialPopup.classList.remove(
+      "show"
+    );
+
+  }, 5000);
+
+  socialIndex++;
+
+  if (
+    socialIndex >= socialMessages.length
+  ) {
+    socialIndex = 0;
+  }
+}
+
+/* START */
+
+setTimeout(() => {
+
+  showSocialPopup();
+
+  setInterval(() => {
+
+    showSocialPopup();
+
+  }, 12000);
+
+}, 4000);
