@@ -2106,6 +2106,54 @@ button {
   text-transform: uppercase;
 }
 
+/* STARS */
+
+.testimonial-stars {
+
+  margin-bottom: 20px;
+
+  color: #d8ab55;
+
+  font-size: 1.1rem;
+
+  letter-spacing: 4px;
+
+  text-align: center;
+
+  opacity: 0.95;
+}
+
+/* TEXT */
+
+.testimonial-text {
+
+  font-style: italic;
+
+  text-align: center;
+
+  color:
+    rgba(255,255,255,0.8);
+
+  line-height: 1.9;
+
+  font-size: 1rem;
+
+  margin-bottom: 28px;
+}
+
+/* AUTHOR */
+
+.testimonial-author {
+
+  text-align: center;
+
+  color: #f5f5f6;
+
+  font-weight: 600;
+
+  letter-spacing: 0.3px;
+}
+
 /* MOBILE */
 
 @media (max-width: 900px) {
