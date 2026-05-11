@@ -1625,7 +1625,7 @@ button {
     1px solid rgba(255,255,255,0.06);
 
   color:
-    rgba(255,255,255,0.45);
+    background: #18213a;
 
   font-size: 0.85rem;
 }
