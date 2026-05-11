@@ -2110,40 +2110,52 @@ button {
 
 .testimonial-stars {
 
-  margin-bottom: 20px;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-bottom: 22px;
 
   color: #d8ab55;
 
-  font-size: 1.1rem;
+  font-size: 1.15rem;
 
-  letter-spacing: 4px;
+  letter-spacing: 5px;
 
   text-align: center;
-
-  opacity: 0.95;
 }
 
 /* TEXT */
 
 .testimonial-text {
 
-  font-style: italic;
+  width: 100%;
+
+  margin: 0 auto 28px;
 
   text-align: center;
 
+  font-style: italic;
+
   color:
-    rgba(255,255,255,0.8);
+    rgba(255,255,255,0.82);
 
   line-height: 1.9;
 
   font-size: 1rem;
-
-  margin-bottom: 28px;
 }
 
 /* AUTHOR */
 
 .testimonial-author {
+
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   text-align: center;
 
