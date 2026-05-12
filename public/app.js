@@ -456,3 +456,68 @@ function actualizarHorasDisponibles(elementoDia) {
     }
   });
 }
+/* =========================
+   PROCESO DE RESERVA FINAL
+========================= */
+
+document.addEventListener('submit', async (e) => {
+  // Verificamos si el formulario que se intenta enviar es el de agendamiento
+  if (e.target.closest('#booking-form') || e.target.innerHTML.includes('Agendar')) {
+    
+    // 1. EVITAR REINICIO: Detenemos el comportamiento por defecto del navegador
+    e.preventDefault();
+
+    // 2. RECOPILAR DATOS: Buscamos lo que el usuario seleccionó
+    const diaSeleccionado = document.querySelector('.booking-date.active')?.innerText;
+    const botonHora = Array.from(document.querySelectorAll('.booking-times button'))
+                           .find(b => b.style.background === 'rgb(186, 136, 46)' || b.style.background === '#ba882e');
+    const horaSeleccionada = botonHora?.innerText;
+    
+    // Capturamos inputs de contacto (ajusta los IDs si son distintos en tu HTML)
+    const nombreUsuario = document.querySelector('input[type="text"][placeholder*="Nombre"]')?.value;
+    const emailUsuario = document.querySelector('input[type="email"]')?.value;
+
+    // 3. VALIDACIÓN: Si falta algo, avisamos y no seguimos
+    if (!diaSeleccionado || !horaSeleccionada) {
+      alert("Por favor, selecciona un día y una hora antes de agendar.");
+      return;
+    }
+
+    // 4. ENVÍO AL BACKEND
+    const submitBtn = e.target.querySelector('button[type="submit"]') || e.target;
+    const textoOriginal = submitBtn.innerText;
+
+    try {
+      submitBtn.innerText = "Procesando...";
+      submitBtn.disabled = true;
+
+      const response = await fetch(`${BACKEND_URL}/api/calendar/book`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          sessionId: sessionId,
+          dia: diaSeleccionado,
+          hora: horaSeleccionada,
+          nombre: nombreUsuario,
+          email: emailUsuario
+        })
+      });
+
+      if (response.ok) {
+        // 5. ÉXITO: Feedback visual al usuario
+        alert(`¡Cita agendada para el ${diaSeleccionado} a las ${horaSeleccionada}! Te llegará un correo de confirmación.`);
+        // Opcional: Podrías redirigir a una página de gracias o limpiar el formulario
+      } else {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Error en el servidor");
+      }
+
+    } catch (error) {
+      console.error("Error al agendar:", error);
+      alert("No pudimos completar el agendamiento. Por favor, intenta más tarde.");
+    } finally {
+      submitBtn.innerText = textoOriginal;
+      submitBtn.disabled = false;
+    }
+  }
+});
