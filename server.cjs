@@ -132,9 +132,12 @@ app.get("*", (req, res) => {
    START SERVER
 =============================== */
 const PORT = process.env.PORT || 10000;
+
+const BASE_URL = process.env.BASE_URL || `http://localhost:${PORT}`;
+
 app.listen(PORT, () => {
     console.log(`🚀 ABOLEGAL LANDING ONLINE - PUERTO ${PORT}`);
-    console.log(`🌐 Frontend: http://localhost:${PORT}`);
-    console.log(`💬 Chat API: http://localhost:${PORT}/api/chat`);
-    console.log(`📅 Calendar API: http://localhost:${PORT}/api/calendar/availability`);
+    console.log(`🌐 Frontend: ${BASE_URL}`);
+    console.log(`💬 Chat API: ${BASE_URL}/api/chat`);
+    console.log(`📅 Calendar API: ${BASE_URL}/api/calendar/availability`);
 });
