@@ -398,3 +398,61 @@ async function iniciarDemo() {
 document.addEventListener('DOMContentLoaded', () => {
   setTimeout(iniciarDemo, 1000);
 });
+
+/* =========================
+   MÓDULO DE AGENDAMIENTO (FIX)
+========================= */
+
+document.addEventListener('click', (e) => {
+  // 1. Manejo de Clic en Días
+  if (e.target.classList.contains('booking-date')) {
+    // Limpiar selección de otros días
+    document.querySelectorAll('.booking-date').forEach(btn => btn.classList.remove('active'));
+    // Activar el actual
+    e.target.classList.add('active');
+    
+    // Resetear visualmente los botones de hora al cambiar de día
+    document.querySelectorAll('.booking-times button').forEach(btn => {
+        btn.style.background = '';
+        btn.style.color = '';
+    });
+
+    actualizarHorasDisponibles(e.target);
+  }
+
+  // 2. Manejo de Clic en Horas
+  if (e.target.closest('.booking-times button')) {
+    const btn = e.target.closest('.booking-times button');
+    // Limpiar selección de otras horas
+    document.querySelectorAll('.booking-times button').forEach(b => {
+      b.style.background = '';
+      b.style.color = '';
+    });
+    // Activar la actual (Estilo directo para asegurar prioridad)
+    btn.style.background = '#ba882e';
+    btn.style.color = '#151a2c';
+  }
+});
+
+function actualizarHorasDisponibles(elementoDia) {
+  const ahora = new Date();
+  const diaTexto = elementoDia.innerText.toLowerCase();
+  
+  // Determinamos si el día clickeado es "hoy" (Martes 12 de Mayo en este caso)
+  // Nota: Ajustamos a "12" porque es el día actual según el sistema
+  const esHoy = diaTexto.includes('12'); 
+
+  const botonesHora = document.querySelectorAll('.booking-times button');
+  
+  botonesHora.forEach(btn => {
+    const horaBoton = parseInt(btn.innerText.split(':')[0]);
+    
+    if (esHoy && horaBoton <= ahora.getHours()) {
+      // Si la hora ya pasó o es la hora actual, la ocultamos
+      btn.style.display = 'none';
+    } else {
+      // Si es un día futuro o una hora posterior, la mostramos
+      btn.style.display = 'block';
+    }
+  });
+}
