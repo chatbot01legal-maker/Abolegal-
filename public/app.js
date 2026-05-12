@@ -1,65 +1,59 @@
+// --- CONFIGURACIÓN Y SELECTORES ---
+const BACKEND_URL = window.location.origin;
+const SESSION_KEY = 'abolegal_session_id';
+const chatMessages = document.getElementById('chatMessages');
+const userInput = document.getElementById('userInput');
+const sendButton = document.getElementById('sendButton');
+
+let sessionId = localStorage.getItem(SESSION_KEY) || ('abolegal-' + Date.now());
+if (!localStorage.getItem(SESSION_KEY)) localStorage.setItem(SESSION_KEY, sessionId);
+
+// --- FUNCIONES CORE ---
 function addMessage(text, sender) {
-
-  const chatBox =
-    document.getElementById("chat-box");
-
-  const msg =
-    document.createElement("div");
-
-  msg.classList.add("message", sender);
-
+  if (!chatMessages) return;
+  const msg = document.createElement("div");
+  msg.classList.add("message", sender); // sender debe ser 'user' o 'bot'
   msg.innerText = text;
-
-  chatBox.appendChild(msg);
-
-  chatBox.scrollTop =
-    chatBox.scrollHeight;
+  chatMessages.appendChild(msg);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-function sendMessage() {
-
-  const input =
-    document.getElementById("user-input");
-
-  const text = input.value;
-
+async function sendMessage() {
+  const text = userInput.value.trim();
   if (!text) return;
 
   addMessage(text, "user");
+  userInput.value = "";
+  userInput.disabled = true;
+  if (sendButton) sendButton.disabled = true;
 
-  input.value = "";
+  try {
+    const response = await fetch(`${BACKEND_URL}/api/chat`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ sessionId, message: text })
+    });
 
-  setTimeout(() => {
-    botResponse(text);
-  }, 800);
+    const data = await response.json();
+    if (data.reply) {
+      addMessage(data.reply, "bot");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    addMessage("Error de conexión con el asistente.", "bot");
+  } finally {
+    userInput.disabled = false;
+    if (sendButton) sendButton.disabled = false;
+    userInput.focus();
+  }
 }
 
-function botResponse(text) {
-
-  const lower =
-    text.toLowerCase();
-
-  if (lower.includes("despid")) {
-
-    addMessage(
-      "¿Tu contrato era indefinido o a plazo fijo?",
-      "bot"
-    );
-
-  } else if (lower.includes("arriendo")) {
-
-    addMessage(
-      "¿Tienes contrato firmado con el arrendador?",
-      "bot"
-    );
-
-  } else {
-
-    addMessage(
-      "Cuéntame un poco más sobre tu situación para orientarte mejor.",
-      "bot"
-    );
-  }
+// --- CONEXIÓN DE EVENTOS ---
+if (sendButton) sendButton.addEventListener("click", sendMessage);
+if (userInput) {
+  userInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") sendMessage();
+  });
 }
 
 /* =========================
