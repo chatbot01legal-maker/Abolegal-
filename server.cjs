@@ -79,39 +79,39 @@ app.post("/api/chat", async (req, res) => {
 });
 
 /* ===============================
-   CALENDAR ENDPOINTS (TO BE IMPLEMENTED)
+   CALENDAR ENDPOINTS (SINCRONIZADOS)
 =============================== */
 app.post("/api/calendar/create-event", async (req, res) => {
     try {
-        // To be implemented after integrating Google Calendar
-        const { email, name, date, time } = req.body;
+        // Extraemos los datos exactos que envía el app.js
+        const { email, nombre, dia, hora, sessionId } = req.body;
         
-        console.log(`📅 Calendar event request for: ${name} (${email}) at ${date} ${time}`);
+        // Log para que veas la llegada de datos en Render
+        console.log(`📅 [RESERVA] Solicitud recibida:
+           - Usuario: ${nombre} (${email})
+           - Fecha: ${dia} a las ${hora}
+           - Sesión: ${sessionId}`);
         
-        // Placeholder response
+        // Aquí es donde conectaremos la lógica de Google Calendar en el siguiente paso
+        
         res.json({ 
             success: true, 
-            message: "Calendar endpoint ready - integration pending",
-            eventId: "placeholder-" + Date.now()
+            message: "¡Cita recibida en el servidor!",
+            eventId: "dev-" + Date.now()
         });
         
     } catch (error) {
         console.error("❌ CALENDAR ERROR", error);
-        res.status(500).json({ error: "Error al crear evento en calendario" });
+        res.status(500).json({ error: "Error interno al procesar la cita" });
     }
 });
 
 app.get("/api/calendar/availability", async (req, res) => {
     try {
-        // To be implemented
         const { date } = req.query;
         
-        console.log(`📅 Availability request for: ${date}`);
-        
-        // Placeholder response
-        const slots = [
-            "09:00", "10:00", "11:00", "14:00", "15:00", "16:00"
-        ];
+        // Placeholder de slots (Esto se reemplazará por la consulta real a Google)
+        const slots = ["09:00", "10:00", "11:00", "14:00", "15:00", "16:00"];
         
         res.json({ 
             date,
@@ -124,6 +124,7 @@ app.get("/api/calendar/availability", async (req, res) => {
         res.status(500).json({ error: "Error al obtener disponibilidad" });
     }
 });
+
 
 /* ===============================
    FALLBACK ROUTE - SERVE INDEX.HTML
