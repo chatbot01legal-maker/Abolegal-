@@ -8,20 +8,23 @@ const { processMessageUnified } = require("./modules/pipeline");
 const app = express();
 
 /* ===============================
-   CORS SEGURO
+   CORS SEGURO - ACTUALIZADO
 =============================== */
 const allowedOrigins = [
     "https://abolegal.cl",
+    "https://abolegal-lex.onrender.com", // Dominio actual de Render
     "https://ai-team-backend.onrender.com",
     "https://ai-team-frontend.onrender.com",
     "http://localhost:3000",
     "http://localhost:5173",
-    "http://localhost:8080"
+    "http://localhost:8080",
+    "http://localhost:10000"
 ];
 
 app.use(
     cors({
         origin: function (origin, callback) {
+            // Permitir si no hay origen (como apps móviles o curl) o si está en la lista
             if (!origin || allowedOrigins.includes(origin)) {
                 callback(null, true);
             } else {
@@ -32,6 +35,7 @@ app.use(
         credentials: true,
     })
 );
+
 
 /* ===============================
    MIDDLEWARE
