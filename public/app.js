@@ -403,6 +403,11 @@ document.addEventListener('DOMContentLoaded', () => {
    MÓDULO DE AGENDAMIENTO (FIX)
 ========================= */
 
+let bookingState = {
+  dia: null,
+  hora: null
+};
+
 document.addEventListener('click', (e) => {
   // 1. Manejo de Clic en Días
   if (e.target.classList.contains('booking-date')) {
