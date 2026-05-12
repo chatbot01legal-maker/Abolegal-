@@ -478,31 +478,26 @@ button {
 }
 
 /* =====================
-   DEMO ANIMATION
+   DEMO ANIMATION (LIMPIO)
 ===================== */
-
-.demo-msg {
+.demo-msg, .typing {
   opacity: 0;
-
+  display: none;
   transform: translateY(10px);
-
-  animation:
-    fadeMessage 0.5s ease forwards;
+  transition: all 0.5s ease;
 }
 
-.m1 { animation-delay: 0.5s; }
-.m2 { animation-delay: 2s; }
-.m3 { animation-delay: 4s; }
-.m4 { animation-delay: 6s; }
-.m5 { animation-delay: 8s; }
-
-@keyframes fadeMessage {
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.demo-msg.show, .typing.show {
+  opacity: 1;
+  display: flex;
+  transform: translateY(0);
 }
+
+@keyframes blink {
+  0%, 80%, 100% { opacity: 0.3; transform: scale(0.9); }
+  40% { opacity: 1; transform: scale(1); }
+}
+
 
 /* TYPING */
 
