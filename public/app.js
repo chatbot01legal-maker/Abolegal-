@@ -473,7 +473,8 @@ document.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     // 2. RECOPILAR DATOS: Buscamos lo que el usuario seleccionó
-    const diaSeleccionado = document.querySelector('.booking-date.active')?.innerText;
+    const diaSeleccionado = bookingState.dia;
+    const horaSeleccionada = bookingState.hora;
     const botonHora = Array.from(document.querySelectorAll('.booking-times button'))
                            .find(b => b.style.background === 'rgb(186, 136, 46)' || b.style.background === '#ba882e');
     const horaSeleccionada = botonHora?.innerText;
