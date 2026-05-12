@@ -367,3 +367,34 @@ setTimeout(() => {
   }, 12000);
 
 }, 4000);
+
+/* =========================
+   LÓGICA SINCRONIZADA DEMO
+========================= */
+async function iniciarDemo() {
+  const mensajes = document.querySelectorAll('.demo-msg');
+  const typing = document.querySelector('.typing');
+  const sleep = ms => new Promise(res => setTimeout(res, ms));
+
+  for (let i = 0; i < mensajes.length; i++) {
+    // 1. Mostrar que el bot está escribiendo (solo si es mensaje del bot)
+    if (mensajes[i].classList.contains('bot')) {
+      typing.classList.add('show');
+      await sleep(1200);
+      typing.classList.remove('show');
+    }
+    
+    // 2. Mostrar el mensaje
+    mensajes[i].style.display = 'block';
+    await sleep(50); // Pequeño respiro para el navegador
+    mensajes[i].classList.add('show');
+    
+    // 3. Esperar antes del siguiente
+    await sleep(1500);
+  }
+}
+
+// Arrancar cuando la página esté lista
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(iniciarDemo, 1000);
+});
