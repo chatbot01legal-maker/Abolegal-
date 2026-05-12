@@ -491,7 +491,7 @@ document.addEventListener('submit', async (e) => {
       submitBtn.innerText = "Procesando...";
       submitBtn.disabled = true;
 
-      const response = await fetch(`${BACKEND_URL}/api/calendar/book`, {
+      const response = await fetch(${BACKEND_URL}/api/calendar/create-event, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
