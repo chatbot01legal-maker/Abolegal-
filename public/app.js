@@ -37,7 +37,6 @@ async function sendMessage() {
   if (sendButton) sendButton.disabled = true;
 
   try {
-    // CORRECCIÓN: El chat debe ir a /api/chat, no a calendar
     const response = await fetch(`${BACKEND_URL}/api/chat`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -59,65 +58,61 @@ async function sendMessage() {
 }
 
 /* =========================
-   MÓDULO DE AGENDAMIENTO
+   MÓDULO DE AGENDAMIENTO (NUEVO FLUJO)
 ========================= */
 
-function actualizarHorasDisponibles(elementoDia) {
-  const ahora = new Date();
-  const hoyNumero = ahora.getDate(); 
-  const diaTexto = elementoDia.innerText.toLowerCase();
-  const diaEnBoton = parseInt(diaTexto.match(/\d+/) || 0);
+async function cargarDisponibilidad(fechaISO) {
+  const container = document.getElementById("bookingTimes");
+  container.innerHTML = "<p style='font-size: 0.9rem; color: #666;'>Cargando horarios...</p>";
 
-  const botonesHora = document.querySelectorAll('.booking-times button');
-  
-  // Si el día ya pasó, ocultamos el botón del día
-  if (diaEnBoton > 0 && diaEnBoton < hoyNumero) {
-    elementoDia.style.display = 'none';
-    return;
-  }
+  try {
+    const response = await fetch(`${BACKEND_URL}/api/calendar/availability?date=${fechaISO}`);
+    const data = await response.json();
+    
+    container.innerHTML = "";
 
-  const esHoy = (diaEnBoton === hoyNumero);
-
-  botonesHora.forEach(btn => {
-    const horaBoton = parseInt(btn.innerText.split(':')[0]);
-    if (esHoy && horaBoton <= ahora.getHours()) {
-      btn.style.display = 'none';
-    } else {
-      btn.style.display = 'block';
+    if (!data.availableSlots || data.availableSlots.length === 0) {
+      container.innerHTML = `<div class="no-slots" style="padding: 10px; color: #d9534f; font-weight: 500;">No hay horarios disponibles</div>`;
+      return;
     }
-  });
+
+    data.availableSlots.forEach(hora => {
+      const btn = document.createElement("button");
+      btn.innerText = hora;
+      
+      btn.addEventListener("click", () => {
+        document.querySelectorAll("#bookingTimes button").forEach(b => {
+          b.style.background = "";
+          b.style.color = "";
+        });
+        btn.style.background = "#ba882e";
+        btn.style.color = "#151a2c";
+        bookingState.hora = hora;
+      });
+      
+      container.appendChild(btn);
+    });
+  } catch (error) {
+    console.error("❌ Error cargando disponibilidad", error);
+    container.innerHTML = `<div class="no-slots">Error al cargar horarios. Intente más tarde.</div>`;
+  }
 }
 
-// Escuchador global de clics
-document.addEventListener('click', (e) => {
-  // 1. Clic en botones de DÍA
-  if (e.target.classList.contains('booking-date')) {
-    document.querySelectorAll('.booking-date').forEach(btn => btn.classList.remove('active'));
-    e.target.classList.add('active');
-    
-    bookingState.dia = e.target.innerText; 
-    
-    // Resetear selección de hora
-    bookingState.hora = null;
-    document.querySelectorAll('.booking-times button').forEach(btn => {
-        btn.style.background = '';
-        btn.style.color = '';
-    });
+// Escuchador global de clics para DÍAS
+document.addEventListener("click", async (e) => {
+  if (e.target.classList.contains("booking-date")) {
+    document.querySelectorAll(".booking-date").forEach(btn => btn.classList.remove("active"));
+    e.target.classList.add("active");
 
-    actualizarHorasDisponibles(e.target);
-  }
+    bookingState.dia = e.target.innerText;
+    bookingState.hora = null; // Resetea la hora al cambiar de día
 
-  // 2. Clic en botones de HORA
-  if (e.target.closest('.booking-times button')) {
-    const btn = e.target.closest('.booking-times button');
-    document.querySelectorAll('.booking-times button').forEach(b => {
-      b.style.background = '';
-      b.style.color = '';
-    });
-    
-    btn.style.background = '#ba882e';
-    btn.style.color = '#151a2c';
-    bookingState.hora = btn.innerText; 
+    // Extrae el número del día (Ej: "Mié 13" -> 13)
+    const diaNumero = parseInt(bookingState.dia.match(/\d+/)[0]);
+    // Formatea fecha para el backend (2026-05-DD)
+    const fechaISO = `2026-05-${String(diaNumero).padStart(2, "0")}`;
+
+    await cargarDisponibilidad(fechaISO);
   }
 });
 
@@ -183,26 +178,20 @@ if (userInput) {
   });
 }
 
-// El resto de tus funciones de animación (resize, drawVoiceWave, etc.)
-// ... (Omitidas aquí para brevedad, pero mantenlas en tu archivo local)
-
-// Ejecutar limpieza y selección inicial al cargar
 window.addEventListener('DOMContentLoaded', () => {
   const nombresDias = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
   const hoy = new Date();
 
-  document.querySelectorAll('.booking-date').forEach((btn, index) => {
+  // Inicializar botones de días
+  const botonesDias = document.querySelectorAll('.booking-date');
+  botonesDias.forEach((btn, index) => {
     const fechaBoton = new Date();
-    fechaBoton.setDate(hoy.getDate() + index); // Calcula hoy, mañana, etc.
-    
-    // Actualiza el texto del botón con el día real (Ej: Mié 13)
+    fechaBoton.setDate(hoy.getDate() + index); 
     btn.innerText = `${nombresDias[fechaBoton.getDay()]} ${fechaBoton.getDate()}`;
-    
-    actualizarHorasDisponibles(btn);
-
-    if (btn.style.display !== 'none' && !bookingState.dia) {
-      btn.click(); 
-    }
   });
-});
 
+  // Forzar clic en el primer día para cargar sus horas iniciales
+  if (botonesDias.length > 0) {
+    botonesDias[0].click();
+  }
+});

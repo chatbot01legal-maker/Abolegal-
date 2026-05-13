@@ -2,12 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const { processMessageUnified } = require("./modules/pipeline");
-// Calendar module will be added later
-
 const { createCalendarEvent, listEvents } = require("./modules/calendar/googleCalendar");
-
-
-// const { createCalendarEvent } = require("./modules/calendar/googleCalendar");
 
 const app = express();
 
@@ -16,7 +11,7 @@ const app = express();
 =============================== */
 const allowedOrigins = [
     "https://abolegal.cl",
-    "https://abolegal-lex.onrender.com", // Dominio actual de Render
+    "https://abolegal-lex.onrender.com",
     "https://ai-team-backend.onrender.com",
     "https://ai-team-frontend.onrender.com",
     "http://localhost:3000",
@@ -28,7 +23,6 @@ const allowedOrigins = [
 app.use(
     cors({
         origin: function (origin, callback) {
-            // Permitir si no hay origen (como apps móviles o curl) o si está en la lista
             if (!origin || allowedOrigins.includes(origin)) {
                 callback(null, true);
             } else {
@@ -40,16 +34,9 @@ app.use(
     })
 );
 
-
-/* ===============================
-   MIDDLEWARE
-=============================== */
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
-/* ===============================
-   HEALTH CHECK
-=============================== */
 app.get("/health", (req, res) => {
     res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
@@ -59,20 +46,14 @@ app.get("/health", (req, res) => {
 =============================== */
 app.post("/api/chat", async (req, res) => {
     const start = Date.now();
-
     try {
         const { message, sessionId } = req.body;
-
         if (!message || !sessionId) {
             return res.status(400).json({ error: "Message and sessionId are required" });
         }
 
         const result = await processMessageUnified(sessionId, message, new Date().toLocaleDateString('es-CL'));
-        const duration = Date.now() - start;
-        console.log(
-            `📊 [CHAT] session=${sessionId} time=${duration}ms chars=${message.length}`
-        );
-
+        console.log(`📊 [CHAT] session=${sessionId} time=${Date.now() - start}ms`);
         res.json(result);
 
     } catch (error) {
@@ -82,65 +63,67 @@ app.post("/api/chat", async (req, res) => {
 });
 
 /* ===============================
-   CALENDAR ENDPOINTS (SINCRONIZADOS)
+   CALENDAR ENDPOINTS
 =============================== */
 app.post("/api/calendar/create-event", async (req, res) => {
     try {
         const { email, nombre, dia, hora, sessionId } = req.body;
-
-        // Formateo quirúrgico: "Mié 13" -> 13
         const numDia = parseInt(dia.match(/\d+/)[0]);
         const [hh, mm] = hora.split(':');
         
-        // Mayo 2026 (Mes 4 es Mayo en JS)
-        const startDate = new Date(2026, 4, numDia, parseInt(hh), parseInt(mm));
-        const endDate = new Date(startDate.getTime() + 60 * 60 * 1000); 
-
         const fechaBase = `2026-05-${String(numDia).padStart(2, '0')}`;
-
         const slot = {
-        start_iso: `${fechaBase}T${hora}:00`,
-        end_iso: `${fechaBase}T${String(parseInt(hh) + 1).padStart(2, '0')}:${mm}:00`
+            start_iso: `${fechaBase}T${hora}:00`,
+            end_iso: `${fechaBase}T${String(parseInt(hh) + 1).padStart(2, '0')}:${mm}:00`
         };
 
-        console.log(`🚀 Agendando cita OAuth2 para: ${nombre} (${email})`);
-        const result = await createCalendarEvent(
-    slot,
-    sessionId || email,
-    email,
-    nombre
-);
-        res.json({ 
-            success: true, 
-            message: "Cita agendada en Google Calendar",
-            eventId: result.eventId,
-            meetLink: result.meetLink
-        });
+        console.log(`🚀 Agendando cita: ${nombre} (${email})`);
+        const result = await createCalendarEvent(slot, sessionId || email, email, nombre);
         
+        res.json({ success: true, eventId: result.eventId, meetLink: result.meetLink });
     } catch (error) {
-        console.error("❌ CALENDAR ERROR", error.message);
-        res.status(500).json({ error: "Error al conectar con Google Calendar" });
+        console.error("❌ BOOKING ERROR", error.message);
+        res.status(500).json({ error: "Error al agendar" });
     }
 });
 
 /* ===============================
-   DISPONIBILIDAD (REAL-TIME)
+   DISPONIBILIDAD (SSOT - Lógica de Timezone)
 =============================== */
 app.get("/api/calendar/availability", async (req, res) => {
     try {
-        const { date } = req.query; // Espera "2026-05-13"
-        const timeMin = `${date}T00:00:00`;
-        const timeMax = `${date}T23:59:59`;
+        const { date } = req.query; // Formato: 2026-05-13
+        const timeMin = `${date}T00:00:00Z`;
+        const timeMax = `${date}T23:59:59Z`;
 
         const events = await listEvents(timeMin, timeMax);
-        const slots = ["09:00", "10:00", "11:00", "14:00", "15:00", "16:00"];
+        const slots = ["09:00", "10:00", "11:00", "14:00", "15:00", "16:00", "17:00"];
         
-        const occupied = events.map(e => {
-            const d = new Date(e.start.dateTime || e.start.date);
-            return `${String(d.getHours()).padStart(2, '0')}:00`;
+        // 1. Obtener la hora EXACTA en Chile
+        const formatterHour = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Santiago', hour: 'numeric', hourCycle: 'h23' });
+        const nowChile = new Date(new Date().toLocaleString("en-US", { timeZone: "America/Santiago" }));
+        
+        const todayChile = `${nowChile.getFullYear()}-${String(nowChile.getMonth() + 1).padStart(2, '0')}-${String(nowChile.getDate()).padStart(2, '0')}`;
+        const currentHourChile = parseInt(formatterHour.format(new Date()));
+
+        // 2. Procesar eventos ocupados convirtiéndolos a la hora de Chile
+        const occupied = events.map(event => {
+            const start = new Date(event.start.dateTime || event.start.date);
+            const h = formatterHour.format(start);
+            return `${String(h).padStart(2, '0')}:00`;
         });
 
-        const availableSlots = slots.filter(s => !occupied.includes(s));
+        // 3. Filtrar
+        const availableSlots = slots.filter(slot => {
+            if (occupied.includes(slot)) return false; // Ya agendado
+            
+            if (date === todayChile) {
+                const slotHour = parseInt(slot.split(":")[0]);
+                if (slotHour <= currentHourChile) return false; // Ya pasó la hora en Chile
+            }
+            return true;
+        });
+
         res.json({ availableSlots });
         
     } catch (error) {
@@ -149,24 +132,11 @@ app.get("/api/calendar/availability", async (req, res) => {
     }
 });
 
-
-/* ===============================
-   FALLBACK ROUTE - SERVE INDEX.HTML
-=============================== */
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-/* ===============================
-   START SERVER
-=============================== */
 const PORT = process.env.PORT || 10000;
-
-const BASE_URL = process.env.BASE_URL || `http://localhost:${PORT}`;
-
 app.listen(PORT, () => {
     console.log(`🚀 ABOLEGAL LANDING ONLINE - PUERTO ${PORT}`);
-    console.log(`🌐 Frontend: ${BASE_URL}`);
-    console.log(`💬 Chat API: ${BASE_URL}/api/chat`);
-    console.log(`📅 Calendar API: ${BASE_URL}/api/calendar/availability`);
 });
