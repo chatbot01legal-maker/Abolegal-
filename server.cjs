@@ -118,6 +118,33 @@ app.post("/api/calendar/create-event", async (req, res) => {
 });
 
 /* ===============================
+   DISPONIBILIDAD (REAL-TIME)
+=============================== */
+app.get("/api/calendar/availability", async (req, res) => {
+    try {
+        const { date } = req.query; // Espera "2026-05-13"
+        const timeMin = new Date(`${date}T00:00:00Z`).toISOString();
+        const timeMax = new Date(`${date}T23:59:59Z`).toISOString();
+
+        const events = await listEvents(timeMin, timeMax);
+        const slots = ["09:00", "10:00", "11:00", "14:00", "15:00", "16:00"];
+        
+        const occupied = events.map(e => {
+            const d = new Date(e.start.dateTime || e.start.date);
+            return `${String(d.getHours()).padStart(2, '0')}:00`;
+        });
+
+        const availableSlots = slots.filter(s => !occupied.includes(s));
+        res.json({ availableSlots });
+        
+    } catch (error) {
+        console.error("❌ AVAILABILITY ERROR", error);
+        res.status(500).json({ error: "Error al obtener disponibilidad" });
+    }
+});
+
+
+/* ===============================
    FALLBACK ROUTE - SERVE INDEX.HTML
 =============================== */
 app.get("*", (req, res) => {
