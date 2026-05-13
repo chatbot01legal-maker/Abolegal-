@@ -104,8 +104,12 @@ app.post("/api/calendar/create-event", async (req, res) => {
         };
 
         console.log(`🚀 Agendando cita OAuth2 para: ${nombre} (${email})`);
-        const result = await createCalendarEvent(slot, sessionId || email);
-
+        const result = await createCalendarEvent(
+    slot,
+    sessionId || email,
+    email,
+    nombre
+);
         res.json({ 
             success: true, 
             message: "Cita agendada en Google Calendar",
