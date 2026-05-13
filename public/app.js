@@ -188,11 +188,21 @@ if (userInput) {
 
 // Ejecutar limpieza y selección inicial al cargar
 window.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.booking-date').forEach(btn => {
+  const nombresDias = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
+  const hoy = new Date();
+
+  document.querySelectorAll('.booking-date').forEach((btn, index) => {
+    const fechaBoton = new Date();
+    fechaBoton.setDate(hoy.getDate() + index); // Calcula hoy, mañana, etc.
+    
+    // Actualiza el texto del botón con el día real (Ej: Mié 13)
+    btn.innerText = `${nombresDias[fechaBoton.getDay()]} ${fechaBoton.getDate()}`;
+    
     actualizarHorasDisponibles(btn);
-    // Si el día es válido (no oculto) y no hay nada seleccionado aún, lo activa
+
     if (btn.style.display !== 'none' && !bookingState.dia) {
       btn.click(); 
     }
   });
 });
+
