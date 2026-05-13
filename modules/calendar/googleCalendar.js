@@ -106,7 +106,7 @@ async function createCalendarEvent(slot, sessionId) {
     
     // CORREGIDO: Usar nicolas.blanco@abolegal.cl como correo principal del abogado
     // Mantener chatbot.01.legal@gmail.com como respaldo para el sistema
-    const abogadoEmail = process.env.LAWYER_EMAIL || "nicolas.blanco@abolegal.cl";
+    const abogadoEmail = process.env.LAWYER_EMAIL || "nicolasblanco@abolegal.cl";
     const systemEmail = "chatbot.01.legal@gmail.com";
 
     console.log(`📅 Creando evento en calendario: ${calendarId}`);
@@ -126,19 +126,17 @@ async function createCalendarEvent(slot, sessionId) {
         timeZone: process.env.CALENDAR_TIMEZONE || "America/Santiago"
       },
       attendees: [
-  {
-    email: clienteEmail,
-    displayName: nombreCliente
-  },
-  {
-    email: abogadoEmail,
-    displayName: "Abogado ABOLEGAL"
-  },
-  {
-    email: systemEmail,
-    displayName: "Sistema ABOLEGAL"
+  { email: abogadoEmail, displayName: "Abogado ABOLEGAL" },
+  { email: systemEmail, displayName: "Sistema ABOLEGAL" },
+  { email: clienteEmail, displayName: nombreCliente }
+],
+
+conferenceData: {
+  createRequest: {
+    requestId: `meet-${sessionId}-${Date.now()}`,
+    conferenceSolutionKey: { type: "hangoutsMeet" }
   }
-]
+},
       conferenceData: {
         createRequest: {
           requestId: `meet-${sessionId}-${Date.now()}`,
