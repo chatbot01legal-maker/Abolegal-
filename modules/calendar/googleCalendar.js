@@ -126,9 +126,19 @@ async function createCalendarEvent(slot, sessionId) {
         timeZone: process.env.CALENDAR_TIMEZONE || "America/Santiago"
       },
       attendees: [
-        { email: abogadoEmail, displayName: "Abogado ABOLEGAL" },
-        { email: systemEmail, displayName: "Sistema ABOLEGAL" }
-      ],
+  {
+    email: clienteEmail,
+    displayName: nombreCliente
+  },
+  {
+    email: abogadoEmail,
+    displayName: "Abogado ABOLEGAL"
+  },
+  {
+    email: systemEmail,
+    displayName: "Sistema ABOLEGAL"
+  }
+]
       conferenceData: {
         createRequest: {
           requestId: `meet-${sessionId}-${Date.now()}`,
