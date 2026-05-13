@@ -125,7 +125,7 @@ document.addEventListener('click', (e) => {
    PROCESO DE RESERVA FINAL
 ========================= */
 document.addEventListener('submit', async (e) => {
-  const form = e.target.closest('#booking-form');
+  const form = e.target.closest('.booking-form');
   if (!form) return;
     
   e.preventDefault();
@@ -185,3 +185,14 @@ if (userInput) {
 
 // El resto de tus funciones de animación (resize, drawVoiceWave, etc.)
 // ... (Omitidas aquí para brevedad, pero mantenlas en tu archivo local)
+
+// Ejecutar limpieza y selección inicial al cargar
+window.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.booking-date').forEach(btn => {
+    actualizarHorasDisponibles(btn);
+    // Si el día es válido (no oculto) y no hay nada seleccionado aún, lo activa
+    if (btn.style.display !== 'none' && !bookingState.dia) {
+      btn.click(); 
+    }
+  });
+});
