@@ -444,27 +444,31 @@ document.addEventListener('click', (e) => {
 
 function actualizarHorasDisponibles(elementoDia) {
   const ahora = new Date();
+  const hoyNumero = ahora.getDate(); 
   const diaTexto = elementoDia.innerText.toLowerCase();
-  
-  // Determinamos si el día clickeado es "hoy" (Martes 12 de Mayo en este caso)
-  // Nota: Ajustamos a "12" porque es el día actual según el sistema
-  const hoyNumero = new Date().getDate().toString(); 
-  const esHoy = diaTexto.includes(hoyNumero); 
+  const diaEnBoton = parseInt(diaTexto.match(/\d+/)); // Extrae el número del botón
 
   const botonesHora = document.querySelectorAll('.booking-times button');
   
+  // Si el día del botón es menor al día actual, ocultamos todo el módulo
+  if (diaEnBoton < hoyNumero) {
+    elementoDia.style.display = 'none'; // Oculta el botón del día pasado
+    botonesHora.forEach(btn => btn.style.display = 'none');
+    return;
+  }
+
+  const esHoy = (diaEnBoton === hoyNumero);
+
   botonesHora.forEach(btn => {
     const horaBoton = parseInt(btn.innerText.split(':')[0]);
-    
     if (esHoy && horaBoton <= ahora.getHours()) {
-      // Si la hora ya pasó o es la hora actual, la ocultamos
       btn.style.display = 'none';
     } else {
-      // Si es un día futuro o una hora posterior, la mostramos
       btn.style.display = 'block';
     }
   });
 }
+
 /* =========================
    PROCESO DE RESERVA FINAL
 ========================= */
