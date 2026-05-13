@@ -3,6 +3,10 @@ const cors = require("cors");
 const path = require("path");
 const { processMessageUnified } = require("./modules/pipeline");
 // Calendar module will be added later
+
+const { createCalendarEvent, listEvents } = require("./modules/calendar/googleCalendar");
+
+
 // const { createCalendarEvent } = require("./modules/calendar/googleCalendar");
 
 const app = express();
@@ -82,48 +86,36 @@ app.post("/api/chat", async (req, res) => {
 =============================== */
 app.post("/api/calendar/create-event", async (req, res) => {
     try {
-        // Extraemos los datos exactos que envía el app.js
         const { email, nombre, dia, hora, sessionId } = req.body;
+
+        // Formateo quirúrgico: "Mié 13" -> 13
+        const numDia = parseInt(dia.match(/\d+/)[0]);
+        const [hh, mm] = hora.split(':');
         
-        // Log para que veas la llegada de datos en Render
-        console.log(`📅 [RESERVA] Solicitud recibida:
-           - Usuario: ${nombre} (${email})
-           - Fecha: ${dia} a las ${hora}
-           - Sesión: ${sessionId}`);
-        
-        // Aquí es donde conectaremos la lógica de Google Calendar en el siguiente paso
-        
+        // Mayo 2026 (Mes 4 es Mayo en JS)
+        const startDate = new Date(2026, 4, numDia, parseInt(hh), parseInt(mm));
+        const endDate = new Date(startDate.getTime() + 60 * 60 * 1000); 
+
+        const slot = {
+            start_iso: startDate.toISOString(),
+            end_iso: endDate.toISOString()
+        };
+
+        console.log(`🚀 Agendando cita OAuth2 para: ${nombre} (${email})`);
+        const result = await createCalendarEvent(slot, sessionId || email);
+
         res.json({ 
             success: true, 
-            message: "¡Cita recibida en el servidor!",
-            eventId: "dev-" + Date.now()
+            message: "Cita agendada en Google Calendar",
+            eventId: result.eventId,
+            meetLink: result.meetLink
         });
         
     } catch (error) {
-        console.error("❌ CALENDAR ERROR", error);
-        res.status(500).json({ error: "Error interno al procesar la cita" });
+        console.error("❌ CALENDAR ERROR", error.message);
+        res.status(500).json({ error: "Error al conectar con Google Calendar" });
     }
 });
-
-app.get("/api/calendar/availability", async (req, res) => {
-    try {
-        const { date } = req.query;
-        
-        // Placeholder de slots (Esto se reemplazará por la consulta real a Google)
-        const slots = ["09:00", "10:00", "11:00", "14:00", "15:00", "16:00"];
-        
-        res.json({ 
-            date,
-            availableSlots: slots,
-            timezone: "America/Santiago"
-        });
-        
-    } catch (error) {
-        console.error("❌ AVAILABILITY ERROR", error);
-        res.status(500).json({ error: "Error al obtener disponibilidad" });
-    }
-});
-
 
 /* ===============================
    FALLBACK ROUTE - SERVE INDEX.HTML
