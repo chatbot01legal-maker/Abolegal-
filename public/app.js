@@ -410,11 +410,10 @@ let bookingState = {
 
 document.addEventListener('click', (e) => {
   // 1. Manejo de Clic en Días
-  if (e.target.classList.contains('booking-date')) {
-    // Limpiar selección de otros días
-    document.querySelectorAll('.booking-date').forEach(btn => btn.classList.remove('active'));
-    // Activar el actual
-    e.target.classList.add('active');
+  bookingState.dia = e.target.innerText; 
+
+    document.querySelectorAll('.booking-times button').forEach(btn => {
+// ... sigue el resto del código
     
     // Resetear visualmente los botones de hora al cambiar de día
     document.querySelectorAll('.booking-times button').forEach(btn => {
@@ -430,8 +429,11 @@ document.addEventListener('click', (e) => {
     const btn = e.target.closest('.booking-times button');
     // Limpiar selección de otras horas
     document.querySelectorAll('.booking-times button').forEach(b => {
-      b.style.background = '';
-      b.style.color = '';
+      btn.style.background = '#ba882e';
+    btn.style.color = '#151a2c';
+
+    // AÑADE ESTA LÍNEA AQUÍ:
+    bookingState.hora = btn.innerText; 
     });
     // Activar la actual (Estilo directo para asegurar prioridad)
     btn.style.background = '#ba882e';
@@ -445,7 +447,8 @@ function actualizarHorasDisponibles(elementoDia) {
   
   // Determinamos si el día clickeado es "hoy" (Martes 12 de Mayo en este caso)
   // Nota: Ajustamos a "12" porque es el día actual según el sistema
-  const esHoy = diaTexto.includes('12'); 
+  const hoyNumero = new Date().getDate().toString(); 
+  const esHoy = diaTexto.includes(hoyNumero); 
 
   const botonesHora = document.querySelectorAll('.booking-times button');
   
