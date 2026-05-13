@@ -28,9 +28,10 @@ async function sendMessage() {
   if (sendButton) sendButton.disabled = true;
 
   try {
-    const response = await fetch(`${BACKEND_URL}/api/chat`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+          const response = await fetch(`${BACKEND_URL}/api/calendar/create-event`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+
       body: JSON.stringify({ sessionId, message: text })
     });
 
@@ -469,28 +470,59 @@ function actualizarHorasDisponibles(elementoDia) {
 ========================= */
 
 document.addEventListener('submit', async (e) => {
-  // Verificamos si el formulario que se intenta enviar es el de agendamiento
   if (e.target.closest('#booking-form') || e.target.innerHTML.includes('Agendar')) {
     
-    // 1. EVITAR REINICIO: Detenemos el comportamiento por defecto del navegador
     e.preventDefault();
 
-    // 2. RECOPILAR DATOS: Buscamos lo que el usuario seleccionó
+    // 1. RECOPILAR DATOS (Usando el estado guardado)
     const diaSeleccionado = bookingState.dia;
-    const horaSeleccionada = bookingState.hora;
-    const botonHora = Array.from(document.querySelectorAll('.booking-times button'))
-                           .find(b => b.style.background === 'rgb(186, 136, 46)' || b.style.background === '#ba882e');
-    const horaSeleccionada = botonHora?.innerText;
+    const horaSeleccionada = bookingState.hora; // Única declaración limpia
     
-    // Capturamos inputs de contacto (ajusta los IDs si son distintos en tu HTML)
     const nombreUsuario = document.querySelector('input[type="text"][placeholder*="Nombre"]')?.value;
     const emailUsuario = document.querySelector('input[type="email"]')?.value;
 
-    // 3. VALIDACIÓN: Si falta algo, avisamos y no seguimos
-    if (!diaSeleccionado || !horaSeleccionada) {
-      alert("Por favor, selecciona un día y una hora antes de agendar.");
+    // 2. VALIDACIÓN
+    if (!diaSeleccionado || !horaSeleccionada || !nombreUsuario || !emailUsuario) {
+      alert("Por favor, completa todos los campos, selecciona día y hora.");
       return;
     }
+
+    const submitBtn = e.target.querySelector('button[type="submit"]') || e.target;
+    const textoOriginal = submitBtn.innerText;
+
+    try {
+      submitBtn.innerText = "Procesando...";
+      submitBtn.disabled = true;
+
+      // 3. ENVÍO (Corregido con backticks ``)
+      const response = await fetch(`${BACKEND_URL}/api/calendar/create-event`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          sessionId: sessionId,
+          dia: diaSeleccionado,
+          hora: horaSeleccionada,
+          nombre: nombreUsuario,
+          email: emailUsuario
+        })
+      });
+
+      if (response.ok) {
+        alert(`¡Cita agendada para el ${diaSeleccionado} a las ${horaSeleccionada}!`);
+        location.reload(); 
+      } else {
+        throw new Error("Error en el servidor");
+      }
+
+    } catch (error) {
+      alert("No pudimos completar el agendamiento. Intenta de nuevo.");
+    } finally {
+      submitBtn.innerText = textoOriginal;
+      submitBtn.disabled = false;
+    }
+  }
+});
+
 
     // 4. ENVÍO AL BACKEND
     const submitBtn = e.target.querySelector('button[type="submit"]') || e.target;
