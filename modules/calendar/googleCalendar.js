@@ -99,7 +99,12 @@ async function listEvents(timeMin, timeMax, calendarId = null) {
  * @param {string} sessionId - ID de sesión del usuario
  * @returns {Promise<{eventId: string, meetLink: string, htmlLink: string}>}
  */
-async function createCalendarEvent(slot, sessionId) {
+async function createCalendarEvent(
+  slot,
+  sessionId,
+  clienteEmail,
+  nombreCliente
+) {
   try {
     const calendar = getCalendarClient();
     const calendarId = process.env.GOOGLE_CALENDAR_ID || "primary";
