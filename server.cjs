@@ -96,9 +96,11 @@ app.post("/api/calendar/create-event", async (req, res) => {
         const startDate = new Date(2026, 4, numDia, parseInt(hh), parseInt(mm));
         const endDate = new Date(startDate.getTime() + 60 * 60 * 1000); 
 
+        const fechaBase = `2026-05-${String(numDia).padStart(2, '0')}`;
+
         const slot = {
-            start_iso: startDate.toISOString(),
-            end_iso: endDate.toISOString()
+        start_iso: `${fechaBase}T${hora}:00`,
+        end_iso: `${fechaBase}T${String(parseInt(hh) + 1).padStart(2, '0')}:${mm}:00`
         };
 
         console.log(`🚀 Agendando cita OAuth2 para: ${nombre} (${email})`);
@@ -123,8 +125,8 @@ app.post("/api/calendar/create-event", async (req, res) => {
 app.get("/api/calendar/availability", async (req, res) => {
     try {
         const { date } = req.query; // Espera "2026-05-13"
-        const timeMin = new Date(`${date}T00:00:00Z`).toISOString();
-        const timeMax = new Date(`${date}T23:59:59Z`).toISOString();
+        const timeMin = `${date}T00:00:00`;
+        const timeMax = `${date}T23:59:59`;
 
         const events = await listEvents(timeMin, timeMax);
         const slots = ["09:00", "10:00", "11:00", "14:00", "15:00", "16:00"];
