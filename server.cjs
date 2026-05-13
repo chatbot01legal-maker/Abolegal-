@@ -63,8 +63,7 @@ app.post("/api/chat", async (req, res) => {
             return res.status(400).json({ error: "Message and sessionId are required" });
         }
 
-        const result = await processMessageUnified(sessionId, message);
-
+        const result = await processMessageUnified(sessionId, message, new Date().toLocaleDateString('es-CL'));
         const duration = Date.now() - start;
         console.log(
             `📊 [CHAT] session=${sessionId} time=${duration}ms chars=${message.length}`
