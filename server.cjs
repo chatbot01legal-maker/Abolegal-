@@ -67,7 +67,7 @@ app.post("/api/chat", async (req, res) => {
 =============================== */
 app.post("/api/calendar/create-event", async (req, res) => {
     try {
-        const { email, nombre, dia, hora, sessionId } = req.body;
+        const { email, nombre, dia, hora, sessionId, comentarios } = req.body;
         const numDia = parseInt(dia.match(/\d+/)[0]);
         const [hh, mm] = hora.split(':');
         
@@ -78,7 +78,7 @@ app.post("/api/calendar/create-event", async (req, res) => {
         };
 
         console.log(`🚀 Agendando cita: ${nombre} (${email})`);
-        const result = await createCalendarEvent(slot, sessionId || email, email, nombre);
+        const result = await createCalendarEvent(slot, sessionId || email, email, nombre, comentarios);
         
         res.json({ success: true, eventId: result.eventId, meetLink: result.meetLink });
     } catch (error) {
