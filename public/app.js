@@ -129,7 +129,8 @@ document.addEventListener('submit', async (e) => {
   const horaSeleccionada = bookingState.hora;
   const nombreUsuario = form.querySelector('input[type="text"][placeholder*="Nombre"]')?.value;
   const emailUsuario = form.querySelector('input[type="email"]')?.value;
-
+  const comentarios = form.querySelector('textarea')?.value;
+   
   if (!diaSeleccionado || !horaSeleccionada || !nombreUsuario || !emailUsuario) {
     alert("Por favor, completa nombre, email y selecciona día y hora.");
     return;
@@ -150,7 +151,8 @@ document.addEventListener('submit', async (e) => {
         dia: diaSeleccionado,
         hora: horaSeleccionada,
         nombre: nombreUsuario,
-        email: emailUsuario
+        email: emailUsuario,
+        comentarios: comentarios // <--- Agregar esta línea
       })
     });
 
@@ -181,17 +183,22 @@ if (userInput) {
 window.addEventListener('DOMContentLoaded', () => {
   const nombresDias = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
   const hoy = new Date();
-
-  // Inicializar botones de días
   const botonesDias = document.querySelectorAll('.booking-date');
-  botonesDias.forEach((btn, index) => {
-    const fechaBoton = new Date();
-    fechaBoton.setDate(hoy.getDate() + index); 
-    btn.innerText = `${nombresDias[fechaBoton.getDay()]} ${fechaBoton.getDate()}`;
-  });
+  
+  let diasAgregados = 0;
+  let intentoOffset = 0;
 
-  // Forzar clic en el primer día para cargar sus horas iniciales
-  if (botonesDias.length > 0) {
-    botonesDias[0].click();
+  while (diasAgregados < botonesDias.length) {
+    const fechaCandidata = new Date();
+    fechaCandidata.setDate(hoy.getDate() + intentoOffset);
+    const numeroDiaSemana = fechaCandidata.getDay();
+    
+    // Si no es Sábado (6) ni Domingo (0), lo asignamos al botón
+    if (numeroDiaSemana !== 0 && numeroDiaSemana !== 6) {
+      botonesDias[diasAgregados].innerText = `${nombresDias[numeroDiaSemana]} ${fechaCandidata.getDate()}`;
+      diasAgregados++;
+    }
+    intentoOffset++;
   }
+  if (botonesDias.length > 0) botonesDias[0].click();
 });
