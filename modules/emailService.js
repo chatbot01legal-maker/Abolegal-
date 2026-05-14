@@ -179,6 +179,42 @@ RECOMENDACIONES:
 ${preparationTips.length ? preparationTips.map(p => `- ${p}`).join('\n') : 'N/A'}
       `.trim();
 
+  /**
+   * Envía correos desde el formulario de contacto general
+   */
+  async sendGeneralContact({ name, email, message }) {
+    const fromAddress = process.env.EMAIL_FROM || process.env.EMAIL_USER;
+    const toAddress = 'contacto@abolegal.cl'; // Correo donde el estudio recibe consultas
+
+    const mailOptions = {
+      from: fromAddress,
+      to: toAddress,
+      replyTo: email, // Permite responder directamente al cliente
+      subject: `Nueva consulta web: ${name}`,
+      text: `Nombre: ${name}\nCorreo: ${email}\n\nMensaje:\n${message}`,
+      html: `
+        <div style="font-family: sans-serif; padding: 20px; color: #333;">
+          <h2 style="color: #1a365d;">Nueva consulta desde el sitio web</h2>
+          <p><strong>Nombre:</strong> ${escapeHtml(name)}</p>
+          <p><strong>Correo:</strong> ${escapeHtml(email)}</p>
+          <hr style="border: 0; border-top: 1px solid #eee;">
+          <p><strong>Mensaje:</strong></p>
+          <p style="white-space: pre-wrap; background: #f9f9f9; padding: 15px; border-radius: 5px;">${escapeHtml(message)}</p>
+        </div>
+      `
+    };
+
+    try {
+      await this.transporter.sendMail(mailOptions);
+      console.log('📧 [EMAIL] Mensaje de contacto enviado al estudio');
+      return true;
+    } catch (error) {
+      console.error('❌ [EMAIL] Error en sendGeneralContact:', error.message);
+      throw error;
+    }
+  }
+      
+      
       try {
         await this.transporter.sendMail({
           from: fromAddress,
