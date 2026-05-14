@@ -3,7 +3,7 @@ const cors = require("cors");
 const path = require("path");
 const { processMessageUnified } = require("./modules/pipeline");
 const { createCalendarEvent, listEvents } = require("./modules/calendar/googleCalendar");
-
+const nodemailer = require("nodemailer");
 const app = express();
 
 /* ===============================
@@ -156,24 +156,55 @@ app.post("/api/contact", async (req, res) => {
 
         if (!name || !email || !message) {
 
-            console.error("❌ FALTAN CAMPOS");
-
             return res.status(400).json({
                 error: "Faltan campos"
             });
         }
 
-        console.log("✅ CONTACTO RECIBIDO");
+        /* ===============================
+           TRANSPORTER EMAIL
+        =============================== */
 
-        // Aquí después podrás:
-        // - enviar email
-        // - guardar en DB
-        // - mandar a Telegram
-        // etc
+        const transporter = nodemailer.createTransport({
+
+            service: "gmail",
+
+            auth: {
+   user: process.env.GMAIL_USER,
+   pass: process.env.GMAIL_APP_PASSWORD
+            }
+
+        });
+
+        /* ===============================
+           ENVÍO EMAIL
+        =============================== */
+
+        await transporter.sendMail({
+
+            from: `"Abolegal Web" <${process.env.GMAIL_USER}>`,
+
+            to: "contacto@abolegal.cl",
+
+            subject: "Nueva consulta desde Abolegal",
+
+            html: `
+                <h2>Nueva consulta</h2>
+
+                <p><strong>Nombre:</strong> ${name}</p>
+
+                <p><strong>Email:</strong> ${email}</p>
+
+                <p><strong>Mensaje:</strong></p>
+
+                <p>${message}</p>
+            `
+        });
+
+        console.log("✅ EMAIL ENVIADO");
 
         res.json({
-            success: true,
-            message: "Mensaje recibido correctamente"
+            success: true
         });
 
     } catch (error) {
@@ -181,13 +212,8 @@ app.post("/api/contact", async (req, res) => {
         console.error("❌ CONTACT ERROR", error);
 
         res.status(500).json({
-            error: "Error interno servidor"
+            error: "Error enviando email"
         });
     }
 
-});
-
-const PORT = process.env.PORT || 10000;
-app.listen(PORT, () => {
-    console.log(`🚀 ABOLEGAL LANDING ONLINE - PUERTO ${PORT}`);
 });
