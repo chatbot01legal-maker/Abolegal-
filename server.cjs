@@ -136,6 +136,57 @@ app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
+/* ===============================
+   CONTACTO
+=============================== */
+app.post("/api/contact", async (req, res) => {
+
+    try {
+
+        console.log("━━━━━━━━━━━━━━━━━━━━━━");
+        console.log("📨 CONTACT REQUEST");
+
+        const { name, email, message } = req.body;
+
+        console.log("📦 BODY:", {
+            name,
+            email,
+            message
+        });
+
+        if (!name || !email || !message) {
+
+            console.error("❌ FALTAN CAMPOS");
+
+            return res.status(400).json({
+                error: "Faltan campos"
+            });
+        }
+
+        console.log("✅ CONTACTO RECIBIDO");
+
+        // Aquí después podrás:
+        // - enviar email
+        // - guardar en DB
+        // - mandar a Telegram
+        // etc
+
+        res.json({
+            success: true,
+            message: "Mensaje recibido correctamente"
+        });
+
+    } catch (error) {
+
+        console.error("❌ CONTACT ERROR", error);
+
+        res.status(500).json({
+            error: "Error interno servidor"
+        });
+    }
+
+});
+
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
     console.log(`🚀 ABOLEGAL LANDING ONLINE - PUERTO ${PORT}`);
