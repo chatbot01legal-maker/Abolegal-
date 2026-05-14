@@ -99,12 +99,7 @@ async function listEvents(timeMin, timeMax, calendarId = null) {
  * @param {string} sessionId - ID de sesión del usuario
  * @returns {Promise<{eventId: string, meetLink: string, htmlLink: string}>}
  */
-async function createCalendarEvent(
-  slot,
-  sessionId,
-  clienteEmail,
-  nombreCliente
-) {
+async function createCalendarEvent(slot, sessionId, clienteEmail, nombreCliente, comentarios) { 
   try {
     const calendar = getCalendarClient();
     const calendarId = process.env.GOOGLE_CALENDAR_ID || "primary";
@@ -121,7 +116,7 @@ async function createCalendarEvent(
 
     const event = {
       summary: "Consulta Legal - Agendamiento Bot",
-      description: `Consulta legal agendada a través del chatbot.\nSession ID: ${sessionId}\nCliente: ${sessionId}`,
+      description: `Consulta legal agendada.\n\nMensaje del cliente: ${comentarios || "Sin comentarios"}\n\nID Sesión: ${sessionId}`,
       start: {
         dateTime: slot.start_iso,
         timeZone: process.env.CALENDAR_TIMEZONE || "America/Santiago"
