@@ -202,3 +202,138 @@ window.addEventListener('DOMContentLoaded', () => {
   }
   if (botonesDias.length > 0) botonesDias[0].click();
 });
+
+
+/* =========================
+   CONTACT FORM DEBUG
+========================= */
+
+window.addEventListener("DOMContentLoaded", () => {
+
+  console.log("━━━━━━━━━━━━━━━━━━━━━━");
+  console.log("📨 CONTACT MODULE INIT");
+
+  const contactForm =
+    document.querySelector(".contact-form");
+
+  console.log("🔍 FORM ENCONTRADO:", !!contactForm);
+
+  if (!contactForm) {
+    console.error("❌ NO EXISTE .contact-form");
+    return;
+  }
+
+  contactForm.addEventListener("submit", async (e) => {
+
+    console.log("━━━━━━━━━━━━━━━━━━━━━━");
+    console.log("📨 SUBMIT DETECTADO");
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    console.log("✅ preventDefault ejecutado");
+
+    const submitBtn =
+      contactForm.querySelector('button[type="submit"]');
+
+    const modal =
+      document.getElementById("contactSuccessModal");
+
+    const payload = {
+
+      name:
+        contactForm.querySelector('[name="name"]')?.value || "",
+
+      email:
+        contactForm.querySelector('[name="email"]')?.value || "",
+
+      message:
+        contactForm.querySelector('[name="message"]')?.value || ""
+
+    };
+
+    console.log("📦 PAYLOAD:", payload);
+
+    if (
+      !payload.name ||
+      !payload.email ||
+      !payload.message
+    ) {
+      console.error("❌ VALIDACIÓN FRONT");
+      alert("Completa todos los campos");
+      return;
+    }
+
+    try {
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerText = "Enviando...";
+      }
+
+      console.log("🚀 FETCH /api/contact");
+
+      const response = await fetch(
+        `${BACKEND_URL}/api/contact`,
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json"
+          },
+
+          body: JSON.stringify(payload)
+        }
+      );
+
+      console.log("📡 STATUS:", response.status);
+
+      const result = await response.text();
+
+      console.log("📨 RESPONSE RAW:");
+      console.log(result);
+
+      if (!response.ok) {
+
+        console.error("❌ BACKEND ERROR");
+
+        alert(
+          "Error backend:\n\n" +
+          result
+        );
+
+        return;
+      }
+
+      console.log("✅ MENSAJE ENVIADO");
+
+      if (modal) {
+        modal.style.display = "flex";
+      } else {
+        alert("Mensaje enviado correctamente");
+      }
+
+      contactForm.reset();
+
+    } catch (error) {
+
+      console.error("❌ FETCH ERROR");
+      console.error(error);
+
+      alert(
+        "ERROR FETCH:\n\n" +
+        error.message
+      );
+
+    } finally {
+
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerText = "Enviar consulta";
+      }
+
+    }
+
+  });
+
+});
