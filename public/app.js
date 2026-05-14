@@ -117,57 +117,135 @@ document.addEventListener("click", async (e) => {
 });
 
 /* =========================
-   PROCESO DE RESERVA FINAL
+   BOOKING FORM
 ========================= */
-document.addEventListener('submit', async (e) => {
-  const form = e.target.closest('.booking-form');
-  if (!form) return;
-    
-  e.preventDefault();
 
-  const diaSeleccionado = bookingState.dia;
-  const horaSeleccionada = bookingState.hora;
-  const nombreUsuario = form.querySelector('input[type="text"][placeholder*="Nombre"]')?.value;
-  const emailUsuario = form.querySelector('input[type="email"]')?.value;
-  const comentarios = form.querySelector('textarea')?.value;
-   
-  if (!diaSeleccionado || !horaSeleccionada || !nombreUsuario || !emailUsuario) {
-    alert("Por favor, completa nombre, email y selecciona día y hora.");
+window.addEventListener("DOMContentLoaded", () => {
+
+  const bookingForm =
+    document.querySelector(".booking-form");
+
+  console.log("📅 BOOKING FORM:", bookingForm);
+
+  if (!bookingForm) {
+    console.log("ℹ️ No existe booking-form en esta página");
     return;
   }
 
-  const submitBtn = form.querySelector('button[type="submit"]');
-  const textoOriginal = submitBtn.innerText;
+  bookingForm.addEventListener("submit", async (e) => {
 
-  try {
-    submitBtn.innerText = "Procesando...";
-    submitBtn.disabled = true;
+    e.preventDefault();
 
-    const response = await fetch(`${BACKEND_URL}/api/calendar/create-event`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        sessionId,
-        dia: diaSeleccionado,
-        hora: horaSeleccionada,
-        nombre: nombreUsuario,
-        email: emailUsuario,
-        comentarios: comentarios // <--- Agregar esta línea
-      })
+    console.log("📨 SUBMIT BOOKING");
+
+    const diaSeleccionado = bookingState.dia;
+    const horaSeleccionada = bookingState.hora;
+
+    const nombreUsuario =
+      bookingForm.querySelector('input[type="text"]')?.value?.trim();
+
+    const emailUsuario =
+      bookingForm.querySelector('input[type="email"]')?.value?.trim();
+
+    const comentarios =
+      bookingForm.querySelector('textarea')?.value?.trim();
+
+    console.log("📦 BOOKING DATA:", {
+      diaSeleccionado,
+      horaSeleccionada,
+      nombreUsuario,
+      emailUsuario,
+      comentarios
     });
 
-    if (response.ok) {
-      alert(`¡Cita agendada para el ${diaSeleccionado} a las ${horaSeleccionada}!`);
-      location.reload(); 
-    } else {
-      throw new Error("Error en el servidor");
+    if (
+      !diaSeleccionado ||
+      !horaSeleccionada ||
+      !nombreUsuario ||
+      !emailUsuario
+    ) {
+
+      console.error("❌ VALIDACIÓN FALLIDA BOOKING");
+
+      alert(
+        "Por favor completa nombre, email y selecciona día y hora."
+      );
+
+      return;
     }
-  } catch (error) {
-    alert("No pudimos completar el agendamiento.");
-  } finally {
-    submitBtn.innerText = textoOriginal;
-    submitBtn.disabled = false;
-  }
+
+    const submitBtn =
+      bookingForm.querySelector('button[type="submit"]');
+
+    const textoOriginal =
+      submitBtn.innerText;
+
+    try {
+
+      submitBtn.innerText = "Procesando...";
+      submitBtn.disabled = true;
+
+      console.log("🚀 ENVIANDO BOOKING");
+
+      const response = await fetch(
+        `${BACKEND_URL}/api/calendar/create-event`,
+        {
+          method: 'POST',
+
+          headers: {
+            'Content-Type': 'application/json'
+          },
+
+          body: JSON.stringify({
+            sessionId,
+            dia: diaSeleccionado,
+            hora: horaSeleccionada,
+            nombre: nombreUsuario,
+            email: emailUsuario,
+            comentarios
+          })
+        }
+      );
+
+      console.log("📡 STATUS BOOKING:", response.status);
+
+      const result = await response.json();
+
+      console.log("📨 RESPONSE BOOKING:", result);
+
+      if (response.ok) {
+
+        alert(
+          `¡Cita agendada para el ${diaSeleccionado} a las ${horaSeleccionada}!`
+        );
+
+        location.reload();
+
+      } else {
+
+        console.error("❌ ERROR BOOKING");
+
+        alert("Error al agendar.");
+
+      }
+
+    } catch (error) {
+
+      console.error("❌ ERROR BOOKING:", error);
+
+      alert(
+        "No pudimos completar el agendamiento."
+      );
+
+    } finally {
+
+      submitBtn.innerText = textoOriginal;
+      submitBtn.disabled = false;
+
+    }
+
+  });
+
 });
 
 /* =========================
