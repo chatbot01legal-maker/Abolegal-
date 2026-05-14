@@ -1,4 +1,3 @@
-// modules/emailService.js - Servicio de envío de correos
 const nodemailer = require('nodemailer');
 
 /**
