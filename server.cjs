@@ -167,15 +167,16 @@ app.post("/api/contact", async (req, res) => {
         =============================== */
 
         const transporter = nodemailer.createTransport({
-
-            service: "gmail",
-
-            auth: {
-   user: process.env.GMAIL_USER,
-   pass: process.env.GMAIL_APP_PASSWORD
-            }
-
-        });
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false,
+    requireTLS: true,
+    auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_APP_PASSWORD
+    },
+    family: 4
+});
 
         /* ===============================
            ENVÍO EMAIL
