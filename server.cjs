@@ -218,3 +218,9 @@ app.post("/api/contact", async (req, res) => {
     }
 
 });
+
+const PORT = process.env.PORT || 10000;
+
+app.listen(PORT, () => {
+    console.log(`🚀 ABOLEGAL LANDING ONLINE - PUERTO ${PORT}`);
+});
