@@ -1997,15 +1997,16 @@ p {
 .typing {
   opacity: 0;
   transform: translateY(10px);
+  visibility: hidden;
+  pointer-events: none;
   transition: all 0.5s ease;
-  display: none;
 }
 
 .demo-msg.show,
 .typing.show {
   opacity: 1;
   transform: translateY(0);
-  display: flex;
+  visibility: visible;
 }
 
 /* typing dots animación */
