@@ -426,3 +426,44 @@ function toggleMenu() {
 
     mobileMenu.classList.toggle("active");
 }
+
+
+/* =========================
+   CHAT DEMO ANIMATION
+========================= */
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function startDemoChat() {
+  const messages = document.querySelectorAll(".demo-chat .demo-msg");
+  const typing = document.querySelector(".demo-chat .typing");
+
+  if (!messages.length || !typing) return;
+
+  // reset estado
+  messages.forEach(m => m.classList.remove("show"));
+  typing.classList.remove("show");
+
+  await sleep(800);
+
+  for (let i = 0; i < messages.length; i++) {
+
+    // mostrar mensaje
+    messages[i].classList.add("show");
+
+    await sleep(900);
+
+    // mostrar typing entre mensajes (excepto el último)
+    if (i < messages.length - 1) {
+      typing.classList.add("show");
+      await sleep(1200);
+      typing.classList.remove("show");
+    }
+  }
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  startDemoChat();
+});
