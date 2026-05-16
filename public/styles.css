@@ -2001,6 +2001,7 @@ p {
   visibility: hidden !important;
   pointer-events: none;
   transition: all 0.5s ease !important;
+  animation: none !important; /* <--- Bloquea la animación automática */
 }
 
 .demo-chat .demo-msg.show,
@@ -2008,7 +2009,8 @@ p {
   opacity: 1 !important;
   transform: translateY(0) !important;
   visibility: visible !important;
-}
+} /* <--- Llave de cierre que faltaba */
+
 
 /* typing dots animación */
 .typing-indicator-demo {
