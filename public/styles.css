@@ -2125,7 +2125,6 @@ p {
 }
 
 /* MENSAJES */
-/* MENSAJES */
 .message {
   max-width: 82%;
   padding: 14px 16px;
@@ -2133,6 +2132,12 @@ p {
   line-height: 1.5;
   font-size: 0.95rem;
 }
+
+/* Aplica la animación de carga SÓLO al chat real, no al demo */
+.message:not(.demo-msg) {
+  animation: fadeMessage 0.25s ease;
+}
+
 
 .message:not(.demo-msg) {
   animation: fadeMessage 0.25s ease;
@@ -2166,16 +2171,17 @@ p {
   gap: 5px;
 }
 
-.typing-dots span {
+.typing span {
   width: 8px;
   height: 8px;
   border-radius: 50%;
   background: #d8ab55;
-  animation: typingBounce 1.2s infinite ease-in-out;
+  animation: typingBounceDemo 1.2s infinite ease-in-out;
 }
 
-.typing-dots span:nth-child(2) { animation-delay: 0.2s; }
-.typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+.typing span:nth-child(2) { animation-delay: 0.2s; }
+.typing span:nth-child(3) { animation-delay: 0.4s; }
+
 
 /* ANIMACIONES */
 @keyframes fadeMessage {
