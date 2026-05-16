@@ -1994,19 +1994,20 @@ p {
 ===================== */
 
 .demo-msg,
-.typing {
-  opacity: 0;
-  transform: translateY(10px);
-  visibility: hidden;
+.demo-chat .demo-msg,
+.demo-chat .typing {
+  opacity: 0 !important;
+  transform: translateY(10px) !important;
+  visibility: hidden !important;
   pointer-events: none;
-  transition: all 0.5s ease;
+  transition: all 0.5s ease !important;
 }
 
-.demo-msg.show,
-.typing.show {
-  opacity: 1;
-  transform: translateY(0);
-  visibility: visible;
+.demo-chat .demo-msg.show,
+.demo-chat .typing.show {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  visibility: visible !important;
 }
 
 /* typing dots animación */
@@ -2022,7 +2023,7 @@ p {
   gap: 5px;
 }
 
-.typing-dots-demo span {
+.demo-chat .typing span {
   width: 8px;
   height: 8px;
   border-radius: 50%;
@@ -2030,8 +2031,9 @@ p {
   animation: typingBounceDemo 1.2s infinite ease-in-out;
 }
 
-.typing-dots-demo span:nth-child(2) { animation-delay: 0.2s; }
-.typing-dots-demo span:nth-child(3) { animation-delay: 0.4s; }
+.demo-chat .typing span:nth-child(2) { animation-delay: 0.2s; }
+.demo-chat .typing span:nth-child(3) { animation-delay: 0.4s; }
+
 
 @keyframes typingBounceDemo {
   0%, 80%, 100% {
