@@ -420,3 +420,53 @@ if (canvas) {
 
   requestAnimationFrame(animate);
 }
+
+
+/* =========================
+   FLOATING PARTICLES LAYER
+========================= */
+
+const particles = [];
+
+for (let i = 0; i < 45; i++) {
+
+  particles.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    radius: 1 + Math.random() * 3,
+    speedX: (Math.random() - 0.5) * 0.15,
+    speedY: (Math.random() - 0.5) * 0.15,
+    alpha: 0.03 + Math.random() * 0.08
+  });
+
+}
+
+function drawParticles() {
+
+  for (const p of particles) {
+
+    p.x += p.speedX;
+    p.y += p.speedY;
+
+    if (p.x < 0) p.x = canvas.width;
+    if (p.x > canvas.width) p.x = 0;
+
+    if (p.y < 0) p.y = canvas.height;
+    if (p.y > canvas.height) p.y = 0;
+
+    ctx.beginPath();
+
+    ctx.arc(
+      p.x,
+      p.y,
+      p.radius,
+      0,
+      Math.PI * 2
+    );
+
+    ctx.fillStyle =
+      `rgba(216,171,85,${p.alpha})`;
+
+    ctx.fill();
+  }
+}
