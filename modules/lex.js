@@ -1,8 +1,7 @@
-
 // modules/lex.js
-// LEX – ASISTENTE LEGAL PURO + INVITACIÓN DIRECTA A WIDGET (Native Fetch v1)
+// LEX – ASISTENTE LEGAL PURO + INVITACIÓN DIRECTA A WIDGET (Native Fetch v1beta - Gemini 2.0)
 
-console.log("🗣️ [LEX] Asistente legal con invitación directa a widget (Direct Endpoint v1)");
+console.log("🗣️ [LEX] Asistente legal con invitación directa a widget (Direct Endpoint v1beta / Gemini 2.0)");
 
 const PERSONALIDAD_LEX = `
 Eres Lex, un asistente legal chileno.
@@ -97,8 +96,8 @@ INSTRUCCIONES FINALES:
 `;
 
   try {
-    // Forzamos el uso del endpoint estable v1 evadiendo las restricciones del SDK
-    const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`;
+    // Apuntamos al endpoint v1beta con gemini-2.0-flash que está respondiendo activamente
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.GEMINI_API_KEY}`;
     
     const response = await fetch(url, {
       method: 'POST',
@@ -135,14 +134,16 @@ INSTRUCCIONES FINALES:
     return respuesta;
 
   } catch (error) {
-    console.error("❌ [LEX] Error:", error.message);
+    console.error("❌ [LEX] Error controlado:", error.message);
     
-    if (analisis.user_requested_lawyer) {
-      return "Entiendo que quieres hablar con un abogado. Puedes usar el widget de agendamiento que aparece más abajo para reservar una videollamada.";
+    // Fallback elocuente ante saturación de cuota (429) o fallos de red
+    if (analisis.user_requested_lawyer || shouldInviteWidget) {
+      return "Entiendo perfectamente que necesitas la asesoría de un profesional. Para tu comodidad, puedes utilizar directamente el widget de agendamiento que se encuentra aquí abajo para reservar tu videollamada.";
     }
     
-    return "Entiendo. Si quieres, cuéntame un poco más para poder orientarte mejor.";
+    return "Hola. He recibido tu mensaje de forma correcta. Cuéntame un poco más acerca de tu situación para dejar los antecedentes listos mientras preparamos tu atención.";
   }
 }
 
 module.exports = { lexReply };
+
