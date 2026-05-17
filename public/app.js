@@ -348,8 +348,9 @@ if (document.readyState === "loading") {
 }
 
 
+
 /* =========================
-   AI VOICE BACKGROUND
+   AI WAVE BACKGROUND
 ========================= */
 
 const canvas = document.getElementById("bg-canvas");
@@ -364,72 +365,58 @@ if (canvas) {
   }
 
   resizeCanvas();
+
   window.addEventListener("resize", resizeCanvas);
 
-  const bars = [];
+  const waves = [
+    { amp: 60, freq: 0.008, speed: 0.0012, alpha: 0.10 },
+    { amp: 45, freq: 0.012, speed: 0.0018, alpha: 0.12 },
+    { amp: 30, freq: 0.018, speed: 0.0025, alpha: 0.08 }
+  ];
 
-  const BAR_COUNT = 90;
+  function drawWave(time, wave, offsetY) {
 
-  for (let i = 0; i < BAR_COUNT; i++) {
+    ctx.beginPath();
 
-    bars.push({
-      x: (window.innerWidth / BAR_COUNT) * i,
-      width: 3 + Math.random() * 3,
-      height: 40 + Math.random() * 120,
-      speed: 0.5 + Math.random() * 1.5,
-      offset: Math.random() * 1000
-    });
+    for (let x = 0; x <= canvas.width; x++) {
 
-  }
-
-  function animateBackground(time) {
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    for (let i = 0; i < bars.length; i++) {
-
-      const b = bars[i];
-
-      const wave =
-        Math.sin((time * 0.001 * b.speed) + b.offset);
-
-      const dynamicHeight =
-        b.height * (0.45 + (wave + 1) / 2);
-
-      const x = b.x;
       const y =
-        canvas.height / 2 - dynamicHeight / 2;
+        offsetY +
+        Math.sin(x * wave.freq + time * wave.speed)
+        * wave.amp;
 
-      const gradient =
-        ctx.createLinearGradient(
-          0,
-          y,
-          0,
-          y + dynamicHeight
-        );
-
-      gradient.addColorStop(0, "rgba(216,171,85,0)");
-      gradient.addColorStop(0.5, "rgba(216,171,85,0.9)");
-      gradient.addColorStop(1, "rgba(216,171,85,0)");
-
-      ctx.fillStyle = gradient;
-
-      ctx.beginPath();
-
-      ctx.roundRect(
-        x,
-        y,
-        b.width,
-        dynamicHeight,
-        10
-      );
-
-      ctx.fill();
+      if (x === 0) {
+        ctx.moveTo(x, y);
+      } else {
+        ctx.lineTo(x, y);
+      }
     }
 
-    requestAnimationFrame(animateBackground);
+    ctx.strokeStyle =
+      `rgba(216,171,85,${wave.alpha})`;
+
+    ctx.lineWidth = 2;
+
+    ctx.stroke();
   }
 
-  requestAnimationFrame(animateBackground);
+  function animate(time) {
+
+    ctx.clearRect(
+      0,
+      0,
+      canvas.width,
+      canvas.height
+    );
+
+    const centerY = canvas.height / 2;
+
+    drawWave(time, waves[0], centerY - 40);
+    drawWave(time, waves[1], centerY);
+    drawWave(time, waves[2], centerY + 40);
+
+    requestAnimationFrame(animate);
+  }
+
+  requestAnimationFrame(animate);
 }
-      
