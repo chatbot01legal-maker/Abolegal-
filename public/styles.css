@@ -2045,6 +2045,18 @@ p {
   }
 }
 
+/* Forzar esquinas rectas en el input y botón falsos de la simulación */
+.demo-chat .fake-input input,
+.chat-container.demo-chat .input-area input {
+  border-radius: 0px !important;
+}
+
+.demo-chat .fake-input button,
+.chat-container.demo-chat .input-area button {
+  border-radius: 0px !important;
+}
+
+
 /* =====================
    CHAT REAL (FUNCIONAL)
 ===================== */
