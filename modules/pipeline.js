@@ -28,12 +28,21 @@ async function processMessageUnified(sessionId, message) {
 
   const conversationHistory = session.conversationHistory || [];
 
-  // 2. Análisis contextual
-  const analisis = await analyzer.analyzeMessage(
-    message,
-    sessionId,
-    conversationHistory
-  );
+  // 2. Análisis contextual - SILENCIADO TEMPORALMENTE POR CONCURRENCIA
+  const analisis = {
+    area: "general",
+    conversation_phase: "discovery",
+    should_offer_videocall: false,
+    user_requested_lawyer: false
+  };
+
+  // Detección manual rústica básica para no perder el widget
+  const msgMin = message.toLowerCase();
+  if (msgMin.includes("abogado") || msgMin.includes("agendar") || msgMin.includes("cita") || msgMin.includes("llamada")) {
+    analisis.user_requested_lawyer = true;
+    analisis.should_offer_videocall = true;
+  }
+
 
   // 3. Generación de respuesta (Lex SOLO genera, no persiste)
   const reply = await lexReply(
