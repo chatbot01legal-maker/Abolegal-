@@ -1,24 +1,14 @@
+
 // modules/lex.js
-// LEX – ASISTENTE LEGAL PURO + INVITACIÓN DIRECTA A WIDGET
+// LEX – ASISTENTE LEGAL PURO + INVITACIÓN DIRECTA A WIDGET (Native Fetch v1)
 
-const { GoogleGenerativeAI } = require('@google/generative-ai');
-
-console.log("🗣️ [LEX] Asistente legal con invitación directa a widget");
-
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-const model = genAI.getGenerativeModel({
-  model: "gemini-1.5-flash-latest",
-  generationConfig: {
-    temperature: 0.6,
-    maxOutputTokens: 220
-  }
-});
+console.log("🗣️ [LEX] Asistente legal con invitación directa a widget (Direct Endpoint v1)");
 
 const PERSONALIDAD_LEX = `
 Eres Lex, un asistente legal chileno.
 
 COMPORTAMIENTO CRÍTICO:
-1. Si el usuario SOLICITA EXPLÍCITAMENTE hablar con un abogado (ej: "quiero una videollamada", "necesito un abogado"):
+1. Si el usuario SOLICITA EXPLÍCIPAMENTE hablar con un abogado (ej: "quiero una videollamada", "necesito un abogado"):
    - NO hagas más preguntas
    - Invita DIRECTAMENTE al widget de agendamiento
    - Ejemplo: "Entiendo. Puedes usar el widget de abajo para agendar una videollamada con un abogado."
@@ -65,7 +55,6 @@ async function lexReply(
 
   let invitacionWidget = '';
   if (shouldInviteWidget) {
-    // 🔥 INVITACIÓN DIRECTA Y CLARA
     invitacionWidget = `
 IMPORTANTE: El usuario ha solicitado hablar con un abogado o está listo para acción.
 
@@ -108,10 +97,37 @@ INSTRUCCIONES FINALES:
 `;
 
   try {
-    const resultado = await model.generateContent(prompt);
-    const respuesta = resultado.response.text().trim();
+    // Forzamos el uso del endpoint estable v1 evadiendo las restricciones del SDK
+    const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`;
     
-    // 🔥 REFUERZO: Si debería invitar pero no lo menciona, añadirlo
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: {
+          temperature: 0.6,
+          maxOutputTokens: 220
+        }
+      })
+    });
+
+    if (!response.ok) {
+      const errText = await response.text();
+      throw new Error(`HTTP ${response.status}: ${errText}`);
+    }
+
+    const data = await response.json();
+    
+    if (!data.candidates || !data.candidates[0] || !data.candidates[0].content || !data.candidates[0].content.parts[0]) {
+      throw new Error("Estructura de respuesta inesperada de la API de Gemini");
+    }
+
+    const respuesta = data.candidates[0].content.parts[0].text.trim();
+    
+    // REFUERZO: Si debería invitar pero no lo menciona, añadirlo
     if (shouldInviteWidget && !respuesta.toLowerCase().includes('widget') && !respuesta.toLowerCase().includes('agendar')) {
       return `${respuesta}\n\nPuedes usar el widget de abajo para agendar una videollamada con un abogado especializado.`;
     }
@@ -121,7 +137,6 @@ INSTRUCCIONES FINALES:
   } catch (error) {
     console.error("❌ [LEX] Error:", error.message);
     
-    // Fallback inteligente
     if (analisis.user_requested_lawyer) {
       return "Entiendo que quieres hablar con un abogado. Puedes usar el widget de agendamiento que aparece más abajo para reservar una videollamada.";
     }
