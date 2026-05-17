@@ -1,7 +1,7 @@
 // modules/lex.js
 // LEX – ASISTENTE LEGAL PURO + INVITACIÓN DIRECTA A WIDGET (Carril Gemini 1.5 Pro)
 // Cambiar gemini-1.5-pro por gemini-2.0-flash para restaurar el motor activo
-const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.GEMINI_API_KEY}`;
+const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=${process.env.GEMINI_API_KEY}`;
 
 const PERSONALIDAD_LEX = `
 Eres Lex, un asistente legal chileno.
@@ -95,9 +95,9 @@ INSTRUCCIONES FINALES:
 - No prometas resultados
 `;
 
-    try {
-    // Usamos la URL correcta apuntando a gemini-2.0-flash
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.GEMINI_API_KEY}`;
+      try {
+    // Migramos al carril Lite para evadir el bloqueo diario del modelo base
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=${process.env.GEMINI_API_KEY}`;
     
     const response = await fetch(url, {
       method: 'POST',
