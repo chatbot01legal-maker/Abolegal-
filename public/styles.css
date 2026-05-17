@@ -2012,7 +2012,7 @@ p {
   background: rgba(255,255,255,0.05);
   border: 1px solid rgba(255,255,255,0.06);
   padding: 14px 16px;
-  border-radius: 16px;
+  border-radius: 1px;
   max-width: 82%;
   align-self: flex-start;
   animation: demoMessageFadeIn 0.4s ease forwards !important;
@@ -2054,7 +2054,7 @@ p {
   margin: auto;
   background: rgba(15, 23, 42, 0.92);
   border: 1px solid rgba(186,136,46,0.18);
-  border-radius: 16px;
+  border-radius: 1px;
   backdrop-filter: blur(18px);
   overflow: hidden;
   position: relative;
@@ -2104,7 +2104,7 @@ p {
 .input-area input {
   flex: 1;
   padding: 14px 16px;
-  border-radius: 12px;
+  border-radius: 1px;
   background: rgba(0,0,0,0.25);
   border: 1px solid rgba(255,255,255,0.08);
   color: white;
@@ -2125,7 +2125,7 @@ p {
 .message {
   max-width: 82%;
   padding: 14px 16px;
-  border-radius: 16px;
+  border-radius: 1px;
   line-height: 1.5;
   font-size: 0.95rem;
   animation: fadeMessage 0.25s ease;
