@@ -2132,7 +2132,7 @@ p {
 
 .input-area button {
   padding: 14px 20px;
-  border-radius: 12px;
+  border-radius: 1px;
   border: none;
   background: linear-gradient(to bottom, #d8ab55, #ba882e);
   color: #151a2c;
