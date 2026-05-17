@@ -1989,34 +1989,24 @@ p {
   }
 }
 
-
-
 /* =====================
    CHAT DEMO (ANIMACIÓN INICIAL)
 ===================== */
 
-.demo-chat .demo-msg,
-.demo-chat .typing {
-  opacity: 0 !important;
-  transform: translateY(12px) !important;
-  transition: opacity 0.6s ease, transform 0.6s ease !important;
-  will-change: opacity, transform;
-  
-  /* ESTO ES LO CRÍTICO: Anula la animación automática de .message */
-  animation: none !important; 
-  pointer-events: none;
+/* Estado inicial: Completamente extirpados del flujo visual, imposibles de saltar */
+.demo-messages .demo-msg,
+.demo-messages .typing {
+  display: none !important;
 }
 
-/* Estado visible activado por JS */
-.demo-chat .demo-msg.show,
-.demo-chat .typing.show {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
+/* Estado activo: Aparecen y ejecutan su propia animación de entrada controlada */
+.demo-messages .demo-msg.show {
+  display: block !important;
+  animation: demoMessageFadeIn 0.4s ease forwards !important;
 }
 
-/* Contenedor de los puntos del demo */
-.demo-chat .typing {
-  display: flex;
+.demo-messages .typing.show {
+  display: flex !important;
   align-items: center;
   gap: 5px;
   background: rgba(255,255,255,0.05);
@@ -2025,9 +2015,10 @@ p {
   border-radius: 16px;
   max-width: 82%;
   align-self: flex-start;
+  animation: demoMessageFadeIn 0.4s ease forwards !important;
 }
 
-.demo-chat .typing span {
+.demo-messages .typing span {
   width: 8px;
   height: 8px;
   border-radius: 50%;
@@ -2035,8 +2026,13 @@ p {
   animation: typingBounceDemo 1.2s infinite ease-in-out;
 }
 
-.demo-chat .typing span:nth-child(2) { animation-delay: 0.2s; }
-.demo-chat .typing span:nth-child(3) { animation-delay: 0.4s; }
+.demo-messages .typing span:nth-child(2) { animation-delay: 0.2s; }
+.demo-messages .typing span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes demoMessageFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
 @keyframes typingBounceDemo {
   0%, 80%, 100% {
@@ -2197,3 +2193,4 @@ p {
   .input-area { flex-direction: column; }
 }
 
+   
