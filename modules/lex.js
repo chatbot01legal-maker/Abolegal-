@@ -95,9 +95,9 @@ INSTRUCCIONES FINALES:
 - No prometas resultados
 `;
 
-  try {
-    // Apuntamos al modelo Pro v1beta para evadir el bloqueo diario de la serie 2.0 Flash
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=${process.env.GEMINI_API_KEY}`;
+    try {
+    // Usamos la URL correcta apuntando a gemini-2.0-flash
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.GEMINI_API_KEY}`;
     
     const response = await fetch(url, {
       method: 'POST',
