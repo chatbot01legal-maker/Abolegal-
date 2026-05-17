@@ -1,7 +1,7 @@
 // modules/lex.js
 // LEX – ASISTENTE LEGAL PURO + INVITACIÓN DIRECTA A WIDGET (Carril Gemini 1.5 Pro)
-
-console.log("🗣️ [LEX] Asistente legal con invitación directa a widget (carril independiente Gemini 1.5 Pro)");
+// Cambiar gemini-1.5-pro por gemini-2.0-flash para restaurar el motor activo
+const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.GEMINI_API_KEY}`;
 
 const PERSONALIDAD_LEX = `
 Eres Lex, un asistente legal chileno.
