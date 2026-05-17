@@ -1,7 +1,8 @@
+cat << 'EOF' > modules/lex.js
 // modules/lex.js
-// LEX – ASISTENTE LEGAL PURO + INVITACIÓN DIRECTA A WIDGET (Native Fetch v1beta - Gemini 2.0)
+// LEX – ASISTENTE LEGAL PURO + INVITACIÓN DIRECTA A WIDGET (Carril Gemini 1.5 Pro)
 
-console.log("🗣️ [LEX] Asistente legal con invitación directa a widget (Direct Endpoint v1beta / Gemini 2.0)");
+console.log("🗣️ [LEX] Asistente legal con invitación directa a widget (carril independiente Gemini 1.5 Pro)");
 
 const PERSONALIDAD_LEX = `
 Eres Lex, un asistente legal chileno.
@@ -96,8 +97,8 @@ INSTRUCCIONES FINALES:
 `;
 
   try {
-    // Apuntamos al endpoint v1beta con gemini-2.0-flash que está respondiendo activamente
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.GEMINI_API_KEY}`;
+    // Apuntamos al modelo Pro v1beta para evadir el bloqueo diario de la serie 2.0 Flash
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=${process.env.GEMINI_API_KEY}`;
     
     const response = await fetch(url, {
       method: 'POST',
@@ -126,7 +127,6 @@ INSTRUCCIONES FINALES:
 
     const respuesta = data.candidates[0].content.parts[0].text.trim();
     
-    // REFUERZO: Si debería invitar pero no lo menciona, añadirlo
     if (shouldInviteWidget && !respuesta.toLowerCase().includes('widget') && !respuesta.toLowerCase().includes('agendar')) {
       return `${respuesta}\n\nPuedes usar el widget de abajo para agendar una videollamada con un abogado especializado.`;
     }
@@ -136,7 +136,6 @@ INSTRUCCIONES FINALES:
   } catch (error) {
     console.error("❌ [LEX] Error controlado:", error.message);
     
-    // Fallback elocuente ante saturación de cuota (429) o fallos de red
     if (analisis.user_requested_lawyer || shouldInviteWidget) {
       return "Entiendo perfectamente que necesitas la asesoría de un profesional. Para tu comodidad, puedes utilizar directamente el widget de agendamiento que se encuentra aquí abajo para reservar tu videollamada.";
     }
@@ -146,4 +145,4 @@ INSTRUCCIONES FINALES:
 }
 
 module.exports = { lexReply };
-
+EOF
