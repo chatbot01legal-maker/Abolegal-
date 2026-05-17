@@ -31,24 +31,19 @@
     <a href="./">Inicio</a><a href="./servicios.html">Servicios</a><a href="./equipo.html">Equipo</a><a href="./contacto.html">Contacto</a><button>Agendar</button>
   </div>
 </header>
-
+  
 <main class="hero">
   <h1>¿Tienes un problema legal?</h1>
   <p>Cuéntanos qué está pasando. Te orientamos en minutos.</p>
   <div class="chat-container demo-chat">
     <div class="chat-header"><div class="status-dot"></div><span>Asistente Legal IA</span></div>
-    <div class="chat-box demo-messages">
-      <div class="message bot demo-msg m1">Hola. Soy el asistente legal de Abolegal. ¿Qué ocurrió?</div>
-      <div class="message user demo-msg m2">Me despidieron sin aviso.</div>
-      <div class="message bot demo-msg m3">Entiendo. ¿Tu contrato era indefinido?</div>
-      <div class="message user demo-msg m4">Sí, trabajé 4 años.</div>
-      <div class="message bot demo-msg m5">Perfecto. Podrías tener derecho a indemnización.</div>
-      <div class="typing"><span></span><span></span><span></span></div>
-    </div>
+    <!-- Dejas la caja completamente vacía. El JS creará todo en orden -->
+    <div class="chat-box demo-messages" id="demoChatBox"></div>
     <div class="input-area fake-input"><input type="text" placeholder="Describe tu problema legal..." disabled><button>Analizar</button></div>
   </div>
   <div class="trust"><div>✔ Respuesta en minutos</div><div>✔ Asistente Legal con IA</div><div>✔ 100% confidencial</div></div>
 </main>
+
 
 <section class="how-it-works">
   <h2>¿Cómo funciona?</h2>
