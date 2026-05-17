@@ -1,4 +1,3 @@
-cat << 'EOF' > modules/lex.js
 // modules/lex.js
 // LEX – ASISTENTE LEGAL PURO + INVITACIÓN DIRECTA A WIDGET (Carril Gemini 1.5 Pro)
 
@@ -145,4 +144,4 @@ INSTRUCCIONES FINALES:
 }
 
 module.exports = { lexReply };
-EOF
+
