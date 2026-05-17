@@ -27,9 +27,9 @@ p {
   z-index: -1;
   background:
     radial-gradient(
-      circle at center,
+      circle at top,
       #111827 0%,
-      #0b1120 45%,
+      #0b1120 50%,
       #050816 100%
     );
 }
