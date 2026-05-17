@@ -418,10 +418,6 @@ if (canvas) {
     requestAnimationFrame(animate);
   }
 
-  requestAnimationFrame(animate);
-}
-
-
 /* =========================
    FLOATING PARTICLES LAYER
 ========================= */
