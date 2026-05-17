@@ -280,44 +280,70 @@ function toggleMenu() {
   mobileMenu.classList.toggle("active");
 }
 
-/* =========================
-   CHAT DEMO ANIMATION
+
+     /* =========================
+   CHAT DEMO ANIMATION (100% DINÁMICO)
 ========================= */
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 async function startDemoChat() {
-  const messages = document.querySelectorAll(".demo-messages .demo-msg");
-  const typing = document.querySelector(".demo-messages .typing");
+  const demoBox = document.getElementById("demoChatBox");
+  if (!demoBox) return;
 
-  if (!messages.length || !typing) return;
+  // 1. Limpieza absoluta del contenedor por seguridad
+  demoBox.innerHTML = "";
 
-  // Limpieza inicial forzada
-  messages.forEach(m => m.classList.remove("show"));
-  typing.classList.remove("show");
+  // 2. Data Estructural extraída completamente del HTML
+  const demoDataset = [
+    { text: "Hola. Soy el asistente legal de Abolegal. ¿Qué ocurrió?", sender: "bot" },
+    { text: "Me despidieron sin aviso.", sender: "user" },
+    { text: "Entiendo. ¿Tu contrato era indefinido?", sender: "bot" },
+    { text: "Sí, trabajé 4 años.", sender: "user" },
+    { text: "Perfecto. Podrías tener derecho a indemnización.", sender: "bot" }
+  ];
 
-  await sleep(600);
+  // 3. Crear el componente dinámico de Typing (puntos suspensivos)
+  const typingIndicator = document.createElement("div");
+  typingIndicator.className = "typing demo-typing";
+  typingIndicator.innerHTML = "<span></span><span></span><span></span>";
 
-  for (let i = 0; i < messages.length; i++) {
-    // 1. Mostrar burbuja de typing antes de que aparezca un mensaje del bot
-    if (i > 0 && messages[i].classList.contains("bot")) {
-      typing.classList.add("show");
-      await sleep(1400);
-      typing.classList.remove("show");
-      await sleep(200);
+  await sleep(500);
+
+  // 4. Ciclo de renderizado secuencial limpio
+  for (let i = 0; i < demoDataset.length; i++) {
+    const currentMsg = demoDataset[i];
+
+    // Si es un mensaje del Bot, mostramos la simulación de escritura previa
+    if (currentMsg.sender === "bot") {
+      demoBox.appendChild(typingIndicator);
+      typingIndicator.classList.add("show");
+      demoBox.scrollTop = demoBox.scrollHeight;
+      
+      await sleep(1200);
+      
+      typingIndicator.classList.remove("show");
+      if (typingIndicator.parentNode) {
+        typingIndicator.parentNode.removeChild(typingIndicator);
+      }
     }
 
-    // 2. Renderizar el mensaje
-    messages[i].classList.add("show");
-    await sleep(1000);
+    // Inyectar el mensaje real al DOM en su estado activo directo
+    const msgElement = document.createElement("div");
+    msgElement.className = `message ${currentMsg.sender} demo-msg show`;
+    msgElement.innerText = currentMsg.text;
+    
+    demoBox.appendChild(msgElement);
+    demoBox.scrollTop = demoBox.scrollHeight;
+
+    await sleep(1100);
   }
 }
 
-// Blindaje contra desfases de carga en tablets
 if (document.readyState === "loading") {
   window.addEventListener("DOMContentLoaded", startDemoChat);
 } else {
   startDemoChat();
 }
-       
+
